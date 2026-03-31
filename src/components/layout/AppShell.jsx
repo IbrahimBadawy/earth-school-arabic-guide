@@ -120,7 +120,7 @@ export default function AppShell({ children }) {
 
         {/* Main Content - proper margin to avoid sidebar */}
         <main className="flex-1 pb-20 lg:pb-8" style={{ minHeight: 'calc(100vh - 3.5rem)' }} id="main-content">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+          <div className="max-w-4xl mx-auto px-5 sm:px-8 py-8">
             <AnimatePresence mode="wait">
               <motion.div
                 key={location.pathname}

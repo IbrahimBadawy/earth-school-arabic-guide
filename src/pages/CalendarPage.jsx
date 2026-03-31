@@ -49,8 +49,8 @@ export default function CalendarPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-bold text-gray-900">الخطة الزمنية</h1>
-        <p className="text-sm text-gray-500 mt-1">
+        <h1 className="text-2xl font-bold text-gray-900">الخطة الزمنية</h1>
+        <p className="text-base text-gray-500 mt-1">
           ١٢ أسبوع × فقرتين (الثلاثاء والخميس) = ٢٤ فقرة | ٤٥ دقيقة لكل فقرة
         </p>
       </div>

@@ -20,8 +20,8 @@ export default function MaterialsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-bold text-gray-900">الأدوات والمواد</h1>
-        <p className="text-sm text-gray-500 mt-1">قائمة المواد المطلوبة لتنفيذ الأنشطة</p>
+        <h1 className="text-2xl font-bold text-gray-900">الأدوات والمواد</h1>
+        <p className="text-base text-gray-500 mt-1">قائمة المواد المطلوبة لتنفيذ الأنشطة</p>
       </div>
 
       <div className="flex gap-2 no-print">

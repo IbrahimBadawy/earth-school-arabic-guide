@@ -19,8 +19,8 @@ export default function AssessmentPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-bold text-gray-900">التقييم</h1>
-        <p className="text-sm text-gray-500 mt-1">أدوات ومعايير تقييم شاملة</p>
+        <h1 className="text-2xl font-bold text-gray-900">التقييم</h1>
+        <p className="text-base text-gray-500 mt-1">أدوات ومعايير تقييم شاملة</p>
       </div>
 
       <div className="flex gap-2 overflow-x-auto pb-1 no-print">

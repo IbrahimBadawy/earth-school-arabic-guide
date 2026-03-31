@@ -17,8 +17,8 @@ export default function GeneralObjectivesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-bold text-gray-900">الأهداف العامة</h1>
-        <p className="text-sm text-gray-500 mt-1">الأهداف الرئيسية لمنهج اللغة العربية</p>
+        <h1 className="text-2xl font-bold text-gray-900">الأهداف العامة</h1>
+        <p className="text-base text-gray-500 mt-1">الأهداف الرئيسية لمنهج اللغة العربية</p>
       </div>
 
       <div className="flex gap-2 overflow-x-auto pb-1 no-print">

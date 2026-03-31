@@ -13,8 +13,8 @@ export default function TipsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-xl font-bold text-gray-900">نصائح وأسئلة شائعة</h1>
-        <p className="text-sm text-gray-500 mt-1">إرشادات عملية للمعلمات</p>
+        <h1 className="text-2xl font-bold text-gray-900">نصائح وأسئلة شائعة</h1>
+        <p className="text-base text-gray-500 mt-1">إرشادات عملية للمعلمات</p>
       </div>
 
       {/* Tips */}

@@ -34,7 +34,7 @@ export default function ActivityDetailPage() {
       <Link to="/activities" className="text-sm text-primary hover:underline no-print">← مكتبة الأنشطة</Link>
 
       <div>
-        <h1 className="text-xl font-bold text-gray-900 mb-2">{activity.name}</h1>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">{activity.name}</h1>
         <div className="flex flex-wrap gap-2">
           <span className="px-2 py-0.5 rounded text-xs font-medium" style={{ backgroundColor: skill.color + '15', color: skill.color }}>{skill.label}</span>
           {activity.targetLevels.map((l) => (

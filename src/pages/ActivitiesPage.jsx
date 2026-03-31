@@ -31,8 +31,8 @@ export default function ActivitiesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-bold text-gray-900">مكتبة الأنشطة</h1>
-        <p className="text-sm text-gray-500 mt-1">{toArabicNumerals(activities.length)} نشاط وألعاب تعليمية متنوعة</p>
+        <h1 className="text-2xl font-bold text-gray-900">مكتبة الأنشطة</h1>
+        <p className="text-base text-gray-500 mt-1">{toArabicNumerals(activities.length)} نشاط وألعاب تعليمية متنوعة</p>
       </div>
 
       <div className="space-y-3 no-print">

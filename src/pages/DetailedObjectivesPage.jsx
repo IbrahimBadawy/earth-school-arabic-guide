@@ -21,8 +21,8 @@ export default function DetailedObjectivesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-bold text-gray-900">الأهداف التفصيلية</h1>
-        <p className="text-sm text-gray-500 mt-1">أهداف قابلة للقياس مع معايير التقييم</p>
+        <h1 className="text-2xl font-bold text-gray-900">الأهداف التفصيلية</h1>
+        <p className="text-base text-gray-500 mt-1">أهداف قابلة للقياس مع معايير التقييم</p>
       </div>
 
       <div className="flex flex-wrap gap-3 no-print">
