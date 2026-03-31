@@ -1,0 +1,149 @@
+[
+  {
+    "id": "L1-صو-01", "level": 1, "domain": "الوعي الصوتي",
+    "objective": "يميّز صوت الحرف منفردًا وفي أول الكلمة",
+    "measurable": "يحدد الحرف عند سماعه في ٨ من ١٠ محاولات",
+    "assessmentMethod": "ملاحظة مباشرة + لعبة اقفز حين تسمعني",
+    "weekIntroduced": 1
+  },
+  {
+    "id": "L1-صو-02", "level": 1, "domain": "الوعي الصوتي",
+    "objective": "يطابق بين كلمات تبدأ بنفس الصوت",
+    "measurable": "يجمع ٣ صور لكلمات تبدأ بنفس الحرف",
+    "assessmentMethod": "نشاط تصنيف صور",
+    "weekIntroduced": 3
+  },
+  {
+    "id": "L1-بص-01", "level": 1, "domain": "الوعي البصري",
+    "objective": "يربط بين صوت الحرف وشكله منفردًا",
+    "measurable": "يشير للحرف الصحيح عند سماع صوته في ٧ من ١٠",
+    "assessmentMethod": "بطاقات الحروف + ملاحظة",
+    "weekIntroduced": 1
+  },
+  {
+    "id": "L1-بص-02", "level": 1, "domain": "الوعي البصري",
+    "objective": "يستخرج الحرف من شريط التهجئة",
+    "measurable": "يجد الحرف المطلوب في الشريط خلال ١٠ ثوانٍ",
+    "assessmentMethod": "ملاحظة مباشرة",
+    "weekIntroduced": 2
+  },
+  {
+    "id": "L1-بص-03", "level": 1, "domain": "الوعي البصري",
+    "objective": "يتعرّف على اتجاه رسم الحرف بإصبعه",
+    "measurable": "يتتبع الحرف بإصبعه من البداية للنهاية بشكل صحيح",
+    "assessmentMethod": "ملاحظة أثناء التتبع",
+    "weekIntroduced": 1
+  },
+  {
+    "id": "L1-كت-01", "level": 1, "domain": "ما قبل الكتابة",
+    "objective": "يكوّن الخطوط الأساسية (رأسي، أفقي، منحني، منكسر، دائرة)",
+    "measurable": "يرسم ٤ من ٥ أنواع خطوط بشكل يمكن تمييزه",
+    "assessmentMethod": "أوراق عمل الخطوط",
+    "weekIntroduced": 1
+  },
+  {
+    "id": "L1-كت-02", "level": 1, "domain": "ما قبل الكتابة",
+    "objective": "يعبّر عن أفكاره برسوم مفهومة له",
+    "measurable": "يرسم ويحكي عن رسمته بجملة واحدة على الأقل",
+    "assessmentMethod": "ملف الطفل + محادثة",
+    "weekIntroduced": 4
+  },
+  {
+    "id": "L2-صو-01", "level": 2, "domain": "تحليل ودمج الأصوات",
+    "objective": "يحلّل الأصوات القصيرة في الكلمة",
+    "measurable": "يعد أصوات كلمة من ٣ حروف بشكل صحيح",
+    "assessmentMethod": "نشاط عد الأصوات بالخرز",
+    "weekIntroduced": 1
+  },
+  {
+    "id": "L2-صو-02", "level": 2, "domain": "تحليل ودمج الأصوات",
+    "objective": "يدمج صوتين أو ثلاثة لتكوين كلمة",
+    "measurable": "يخمن ٦ من ١٠ كلمات عند سماع أصواتها مفصولة",
+    "assessmentMethod": "لعبة الروبوت",
+    "weekIntroduced": 1
+  },
+  {
+    "id": "L2-صو-03", "level": 2, "domain": "تحليل ودمج الأصوات",
+    "objective": "يدرك الحركات الثلاث (فتحة، ضمة، كسرة)",
+    "measurable": "ينطق الحرف بالحركة المطلوبة في ٨ من ١٠ محاولات",
+    "assessmentMethod": "بطاقات حروف بالحركات",
+    "weekIntroduced": 3
+  },
+  {
+    "id": "L2-بص-01", "level": 2, "domain": "مواضع الحرف",
+    "objective": "يميّز الحرف بأشكاله الثلاثة (أول، وسط، آخر)",
+    "measurable": "يصنف ٦ بطاقات كلمات حسب موضع الحرف بشكل صحيح",
+    "assessmentMethod": "نشاط التصنيف بالسلال",
+    "weekIntroduced": 2
+  },
+  {
+    "id": "L2-بص-02", "level": 2, "domain": "مواضع الحرف",
+    "objective": "يقرأ كلمات ثنائية وثلاثية",
+    "measurable": "يقرأ ٥ كلمات ثنائية أو ثلاثية من ١٠ بشكل صحيح",
+    "assessmentMethod": "بطاقات كلمات + ملاحظة",
+    "weekIntroduced": 4
+  },
+  {
+    "id": "L2-كت-01", "level": 2, "domain": "الكتابة",
+    "objective": "يكتب الحروف في صورتها المنفصلة",
+    "measurable": "يكتب ١٠ حروف على الأقل بشكل واضح ومقروء",
+    "assessmentMethod": "دفتر الكتابة",
+    "weekIntroduced": 2
+  },
+  {
+    "id": "L2-كت-02", "level": 2, "domain": "الكتابة",
+    "objective": "يكتب أصوات الكلمة بصورتها المنفصلة",
+    "measurable": "يكتب ٣ من ٥ كلمات بأغلب حروفها الصحيحة",
+    "assessmentMethod": "إملاء بسيط + ملف الطفل",
+    "weekIntroduced": 6
+  },
+  {
+    "id": "L3-قر-01", "level": 3, "domain": "القراءة",
+    "objective": "يميّز بين الحروف المتشابهة في المخرج",
+    "measurable": "يميز بين ٨ أزواج حروف متشابهة من ١٠",
+    "assessmentMethod": "لعبة الحروف المتشابهة",
+    "weekIntroduced": 1
+  },
+  {
+    "id": "L3-قر-02", "level": 3, "domain": "القراءة",
+    "objective": "يفرّق بين الصوت الطويل والقصير",
+    "measurable": "يحدد نوع الصوت (طويل/قصير) في ٧ من ١٠ كلمات",
+    "assessmentMethod": "ملاحظة أثناء القراءة",
+    "weekIntroduced": 3
+  },
+  {
+    "id": "L3-قر-03", "level": 3, "domain": "القراءة",
+    "objective": "يعيد ترتيب كلمات لتكوين جمل صحيحة",
+    "measurable": "يرتب ٣ جمل من ٥ بشكل صحيح",
+    "assessmentMethod": "نشاط ترتيب الجمل بالبطاقات",
+    "weekIntroduced": 5
+  },
+  {
+    "id": "L3-كت-01", "level": 3, "domain": "الكتابة",
+    "objective": "يكتب كلمات كاملة بالاتصال بين الحروف",
+    "measurable": "يكتب ٥ كلمات بالاتصال الصحيح من ١٠",
+    "assessmentMethod": "دفتر الكتابة + إملاء",
+    "weekIntroduced": 3
+  },
+  {
+    "id": "L3-كت-02", "level": 3, "domain": "الكتابة",
+    "objective": "يعبّر عن أفكاره بكلمات وجمل تصف رسمه",
+    "measurable": "يكتب جملة واحدة على الأقل تصف رسمته",
+    "assessmentMethod": "الكتابة الإبداعية + ملف الطفل",
+    "weekIntroduced": 4
+  },
+  {
+    "id": "L3-لغ-01", "level": 3, "domain": "لغويات",
+    "objective": "إدراك المرادفات والأضداد",
+    "measurable": "يذكر ضد ٥ كلمات من ٧ ومرادف ٣ كلمات من ٥",
+    "assessmentMethod": "لعبة الكرة الأضداد + بطاقات",
+    "weekIntroduced": 1
+  },
+  {
+    "id": "L3-لغ-02", "level": 3, "domain": "لغويات",
+    "objective": "إدراك الكلمات ذات الجذر المشترك",
+    "measurable": "يذكر كلمتين على الأقل من نفس الجذر",
+    "assessmentMethod": "نشاط شجرة الكلمات",
+    "weekIntroduced": 7
+  }
+]
