@@ -10,7 +10,8 @@
       "Bash(for f:*)",
       "Bash(do sed:*)",
       "Bash(echo \"Updated: $f\")",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(xxd -l 20 -s 0 src/components/layout/AppShell.jsx)"
     ]
   }
 }

@@ -33,7 +33,7 @@ export default function HomePage() {
           أ
         </div>
 
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">مدرسة الأرض</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-3">مدرسة الأرض</h1>
         <h2 className="text-xl text-primary font-semibold mb-5">حقيبة معلمة اللغة العربية</h2>
 
         <p className="text-base text-gray-500 max-w-lg mx-auto leading-loose">
@@ -53,8 +53,8 @@ export default function HomePage() {
 
       {/* Three Levels */}
       <section>
-        <h3 className="text-xl font-bold text-gray-800 mb-2">المستويات التعليمية</h3>
-        <p className="text-base text-gray-500 mb-6">كل مستوى مستقل بمعلمته الخاصة ومحاوره المختلفة</p>
+        <h3 className="text-xl font-bold text-gray-800 mb-3">المستويات التعليمية</h3>
+        <p className="text-base text-gray-500 mb-8">كل مستوى مستقل بمعلمته الخاصة ومحاوره المختلفة</p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {levels.map((level, i) => (
@@ -65,20 +65,20 @@ export default function HomePage() {
               transition={{ delay: i * 0.1 }}
               className={`rounded-2xl border-2 p-6 ${levelBorder[level.id]} ${levelBg[level.id]}`}
             >
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center gap-3 mb-5">
                 <span className="text-2xl">{level.icon}</span>
                 <div>
                   <h4 className={`font-bold text-lg ${levelText[level.id]}`}>{level.name}</h4>
-                  <p className="text-sm text-gray-500 mt-0.5">{level.ageRange}</p>
+                  <p className="text-sm text-gray-500 mt-1">{level.ageRange}</p>
                 </div>
               </div>
 
-              <p className="text-sm text-gray-600 mb-1">{level.composition}</p>
-              <p className="text-sm text-gray-600 mb-4 leading-relaxed">{level.description}</p>
+              <p className="text-base text-gray-600 mb-1">{level.composition}</p>
+              <p className="text-base text-gray-600 mb-5 leading-relaxed">{level.description}</p>
 
-              <ul className="space-y-2.5">
+              <ul className="space-y-3">
                 {level.focusAreas.slice(0, 3).map((area, j) => (
-                  <li key={j} className="text-sm text-gray-600 flex items-start gap-2.5">
+                  <li key={j} className="text-base text-gray-600 flex items-start gap-2.5">
                     <span className={`mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0 ${levelDot[level.id]}`} />
                     <span className="leading-relaxed">{area}</span>
                   </li>
@@ -91,9 +91,9 @@ export default function HomePage() {
 
       {/* Navigation Grid */}
       <section>
-        <h3 className="text-xl font-bold text-gray-800 mb-6">محتويات الدليل</h3>
+        <h3 className="text-xl font-bold text-gray-800 mb-8">محتويات الدليل</h3>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {navCards.map((card, i) => (
             <motion.div
               key={card.path}
@@ -103,12 +103,12 @@ export default function HomePage() {
             >
               <Link
                 to={card.path}
-                className="flex items-start gap-4 p-5 rounded-2xl bg-white border border-border hover:border-primary/30 hover:shadow-sm transition-all group"
+                className="flex items-start gap-4 p-6 rounded-2xl bg-white border border-border hover:border-primary/30 hover:shadow-sm transition-all group"
               >
                 <span className="text-3xl mt-1">{card.icon}</span>
                 <div>
-                  <h4 className="font-bold text-base text-gray-800 group-hover:text-primary transition-colors mb-1">{card.title}</h4>
-                  <p className="text-sm text-gray-500 leading-relaxed">{card.desc}</p>
+                  <h4 className="font-bold text-base text-gray-800 group-hover:text-primary transition-colors mb-2">{card.title}</h4>
+                  <p className="text-base text-gray-500 leading-relaxed">{card.desc}</p>
                 </div>
               </Link>
             </motion.div>

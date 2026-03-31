@@ -15,9 +15,9 @@ export default function GeneralObjectivesPage() {
   const [activeTab, setActiveTab] = useState('shared');
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">الأهداف العامة</h1>
+        <h1 className="text-2xl font-bold text-gray-900 mb-3">الأهداف العامة</h1>
         <p className="text-base text-gray-500">الأهداف الرئيسية لمنهج اللغة العربية</p>
       </div>
 
@@ -40,17 +40,17 @@ export default function GeneralObjectivesPage() {
       <AnimatePresence mode="wait">
         <motion.div key={activeTab} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
           {activeTab === 'shared' ? (
-            <div className="space-y-4">
-              <p className="text-base text-gray-500 leading-relaxed mb-2">{objectives.shared.description}</p>
+            <div className="space-y-5">
+              <p className="text-base text-gray-500 leading-relaxed mb-3">{objectives.shared.description}</p>
               {objectives.shared.objectives.map((obj, i) => (
                 <div key={obj.id} className="bg-white rounded-2xl border border-border p-6 flex gap-4 items-start">
                   <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold">
                     {i + 1}
                   </div>
                   <div>
-                    <h4 className="font-bold text-base text-gray-800 mb-1.5">{obj.title}</h4>
-                    <p className="text-sm text-gray-600 leading-loose">{obj.description}</p>
-                    <span className="inline-block mt-2 text-xs px-3 py-1 rounded-lg bg-gray-100 text-gray-500">{obj.stage}</span>
+                    <h4 className="font-bold text-base text-gray-800 mb-2">{obj.title}</h4>
+                    <p className="text-base text-gray-600 leading-loose">{obj.description}</p>
+                    <span className="inline-block mt-3 text-xs px-3 py-1.5 rounded-lg bg-gray-100 text-gray-500">{obj.stage}</span>
                   </div>
                 </div>
               ))}

@@ -47,21 +47,21 @@ export default function CalendarPage() {
   const color = levelColors[selectedLevel];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">الخطة الزمنية</h1>
-        <p className="text-base text-gray-500 mt-1">
+        <h1 className="text-2xl font-bold text-gray-900 mb-3">الخطة الزمنية</h1>
+        <p className="text-base text-gray-500">
           ١٢ أسبوع × فقرتين (الثلاثاء والخميس) = ٢٤ فقرة | ٤٥ دقيقة لكل فقرة
         </p>
       </div>
 
       {/* Level Selector */}
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         {[1, 2, 3].map((l) => (
           <button
             key={l}
             onClick={() => setSelectedLevel(l)}
-            className="px-4 py-2 rounded-lg text-sm font-medium transition-all"
+            className="px-5 py-2.5 rounded-lg text-sm font-medium transition-all"
             style={{
               backgroundColor: selectedLevel === l ? levelColors[l].main : 'white',
               color: selectedLevel === l ? 'white' : levelColors[l].main,
@@ -74,14 +74,14 @@ export default function CalendarPage() {
       </div>
 
       {/* Level description */}
-      <div className="bg-white rounded-2xl border border-border p-6 text-sm text-gray-600">
+      <div className="bg-white rounded-2xl border border-border p-6 text-base text-gray-600 leading-relaxed">
         {selectedLevel === 1 && 'المستوى الأول: حرف جديد كل أسبوع مع مراجعة الحروف السابقة. المحاور: الوعي الصوتي والبصري وما قبل الكتابة.'}
         {selectedLevel === 2 && 'المستوى الثاني: التركيز على تحليل الأصوات ودمجها والحركات ومواضع الحروف والبدء بالقراءة والكتابة.'}
         {selectedLevel === 3 && 'المستوى الثالث: القراءة المستقلة والكتابة المتصلة وتكوين الجمل والمهارات اللغوية المتقدمة.'}
       </div>
 
       {/* Weeks Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {calendar.weeks.map((week, i) => (
           <motion.div
             key={week.weekNumber}
@@ -95,9 +95,9 @@ export default function CalendarPage() {
             onClick={() => setCurrentWeek(week.weekNumber)}
           >
             {/* Week Header */}
-            <div className="px-3 py-2 border-b border-gray-100 flex items-center justify-between" style={{ backgroundColor: color.light }}>
-              <div className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded-md flex items-center justify-center text-white text-xs font-bold" style={{ backgroundColor: color.main }}>
+            <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between" style={{ backgroundColor: color.light }}>
+              <div className="flex items-center gap-3">
+                <span className="w-7 h-7 rounded-md flex items-center justify-center text-white text-xs font-bold" style={{ backgroundColor: color.main }}>
                   {toArabicNumerals(week.weekNumber)}
                 </span>
                 <span className="text-base font-semibold text-gray-800">الأسبوع {toArabicNumerals(week.weekNumber)}</span>
@@ -108,17 +108,17 @@ export default function CalendarPage() {
             </div>
 
             {/* Focus */}
-            <div className="px-3 py-2 text-xs text-gray-500 border-b border-gray-50">
+            <div className="px-4 py-3 text-sm text-gray-500 border-b border-gray-50 leading-relaxed">
               {levelFocus[selectedLevel](week)}
             </div>
 
             {/* Sessions */}
-            <div className="p-2 space-y-1.5">
+            <div className="p-3 space-y-2">
               {week.sessions.map((session) => (
                 <Link
                   key={session.session}
                   to={`/scenario/${selectedLevel}/${week.weekNumber}/${session.session}`}
-                  className="block px-3 py-2 rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all text-xs group"
+                  className="block px-4 py-3 rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all text-sm group"
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-medium text-gray-700">

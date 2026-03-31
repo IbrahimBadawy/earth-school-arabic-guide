@@ -30,28 +30,28 @@ export default function ActivityDetailPage() {
   const skill = skillLabels[activity.targetSkill] || { label: activity.targetSkill, color: '#888' };
 
   return (
-    <div className="space-y-5 max-w-2xl mx-auto">
+    <div className="space-y-6 max-w-2xl mx-auto">
       <Link to="/activities" className="text-sm text-primary hover:underline no-print">← مكتبة الأنشطة</Link>
 
       <div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">{activity.name}</h1>
-        <div className="flex flex-wrap gap-2">
-          <span className="px-2 py-0.5 rounded text-xs font-medium" style={{ backgroundColor: skill.color + '15', color: skill.color }}>{skill.label}</span>
+        <h1 className="text-2xl font-bold text-gray-900 mb-3">{activity.name}</h1>
+        <div className="flex flex-wrap gap-3">
+          <span className="px-3 py-1.5 rounded text-xs font-medium" style={{ backgroundColor: skill.color + '15', color: skill.color }}>{skill.label}</span>
           {activity.targetLevels.map((l) => (
-            <span key={l} className="px-2 py-0.5 rounded text-xs font-medium" style={{ backgroundColor: levelColors[l] + '15', color: levelColors[l] }}>{levelNames[l]}</span>
+            <span key={l} className="px-3 py-1.5 rounded text-xs font-medium" style={{ backgroundColor: levelColors[l] + '15', color: levelColors[l] }}>{levelNames[l]}</span>
           ))}
-          <span className="px-2 py-0.5 rounded text-xs bg-gray-100 text-gray-600">⏱ {toArabicNumerals(activity.duration)} دقيقة</span>
-          <span className="px-2 py-0.5 rounded text-xs bg-gray-100 text-gray-600">👥 {activity.groupSize}</span>
+          <span className="px-3 py-1.5 rounded text-xs bg-gray-100 text-gray-600">⏱ {toArabicNumerals(activity.duration)} دقيقة</span>
+          <span className="px-3 py-1.5 rounded text-xs bg-gray-100 text-gray-600">👥 {activity.groupSize}</span>
         </div>
-        <p className="text-sm text-gray-600 mt-3 leading-relaxed">{activity.description}</p>
+        <p className="text-base text-gray-600 mt-4 leading-relaxed">{activity.description}</p>
       </div>
 
       <div className="bg-white rounded-2xl border border-border p-6">
-        <h2 className="font-bold text-base text-gray-800 mb-3">📝 خطوات التنفيذ</h2>
-        <ol className="space-y-2">
+        <h2 className="font-bold text-base text-gray-800 mb-4">📝 خطوات التنفيذ</h2>
+        <ol className="space-y-3">
           {activity.steps.map((step, i) => (
-            <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-              <span className="flex-shrink-0 w-5 h-5 rounded-md bg-primary text-white flex items-center justify-center text-[10px] font-bold mt-0.5">{toArabicNumerals(i + 1)}</span>
+            <li key={i} className="flex items-start gap-3 text-base text-gray-600">
+              <span className="flex-shrink-0 w-6 h-6 rounded-md bg-primary text-white flex items-center justify-center text-[10px] font-bold mt-0.5">{toArabicNumerals(i + 1)}</span>
               <span className="leading-relaxed">{step}</span>
             </li>
           ))}
@@ -59,32 +59,32 @@ export default function ActivityDetailPage() {
       </div>
 
       <div className="bg-white rounded-2xl border border-border p-6">
-        <h2 className="font-bold text-base text-gray-800 mb-2">🎒 الأدوات</h2>
-        <div className="flex flex-wrap gap-1.5">
-          {activity.materials.map((mat, i) => <span key={i} className="px-2 py-1 rounded-md text-xs bg-amber-50 text-amber-700 border border-amber-100">{mat}</span>)}
+        <h2 className="font-bold text-base text-gray-800 mb-4">🎒 الأدوات</h2>
+        <div className="flex flex-wrap gap-3">
+          {activity.materials.map((mat, i) => <span key={i} className="px-4 py-2 rounded-md text-sm bg-amber-50 text-amber-700 border border-amber-100">{mat}</span>)}
         </div>
       </div>
 
       <div className="bg-white rounded-2xl border border-border p-6">
-        <h2 className="font-bold text-base text-gray-800 mb-2">🔄 تنويعات</h2>
-        <ul className="space-y-1.5">
-          {activity.variations.map((v, i) => <li key={i} className="text-sm text-gray-600 flex items-start gap-1.5"><span className="text-primary">◆</span>{v}</li>)}
+        <h2 className="font-bold text-base text-gray-800 mb-4">🔄 تنويعات</h2>
+        <ul className="space-y-3">
+          {activity.variations.map((v, i) => <li key={i} className="text-base text-gray-600 flex items-start gap-2 leading-relaxed"><span className="text-primary mt-0.5">◆</span>{v}</li>)}
         </ul>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div className="bg-green-50 rounded-2xl border border-green-100 p-6">
-          <h3 className="font-bold text-sm text-green-700 mb-1">🌱 تبسيط</h3>
-          <p className="text-xs text-green-600 leading-relaxed">{activity.differentiationTips.easier}</p>
+          <h3 className="font-bold text-sm text-green-700 mb-2">🌱 تبسيط</h3>
+          <p className="text-sm text-green-600 leading-relaxed">{activity.differentiationTips.easier}</p>
         </div>
         <div className="bg-orange-50 rounded-2xl border border-orange-100 p-6">
-          <h3 className="font-bold text-sm text-orange-700 mb-1">🌟 تحدي</h3>
-          <p className="text-xs text-orange-600 leading-relaxed">{activity.differentiationTips.harder}</p>
+          <h3 className="font-bold text-sm text-orange-700 mb-2">🌟 تحدي</h3>
+          <p className="text-sm text-orange-600 leading-relaxed">{activity.differentiationTips.harder}</p>
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-1.5">
-        {activity.tags.map((tag, i) => <span key={i} className="px-2 py-0.5 rounded text-xs bg-gray-100 text-gray-500">#{tag}</span>)}
+      <div className="flex flex-wrap gap-2">
+        {activity.tags.map((tag, i) => <span key={i} className="px-3 py-1.5 rounded text-xs bg-gray-100 text-gray-500">#{tag}</span>)}
       </div>
     </div>
   );
