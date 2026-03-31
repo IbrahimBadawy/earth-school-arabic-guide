@@ -1,11 +1,12 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toArabicNumerals, formatDuration } from '../utils/arabicNumbers';
 import { useAppContext } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import calendar from '../data/unit-calendar.json';
-import scenariosData from '../data/daily-scenarios/index';
+import scenariosLocal from '../data/daily-scenarios/index';
 
 // Generate daily goal and summary based on level, week, session
 function getDailyInfo(levelNum, weekNum, sessionNum, weekData) {
@@ -112,7 +113,34 @@ export default function ScenarioPage() {
   const color = levelColors[levelNum] || levelColors[1];
   const weekData = calendar.weeks.find((w) => w.weekNumber === weekNum);
   const scenarioKey = `L${levelNum}-W${weekNum}-S${sessionNum}`;
-  const scenario = scenariosData[scenarioKey];
+
+  // Load scenario: try Supabase first, fallback to local
+  const [scenario, setScenario] = useState(null);
+  const [scenarioLoading, setScenarioLoading] = useState(true);
+
+  useEffect(() => {
+    setScenarioLoading(true);
+    setExpandedBlock(null);
+
+    if (isSupabaseConfigured()) {
+      supabase.from('scenarios').select('*').eq('id', scenarioKey).single()
+        .then(({ data }) => {
+          if (data) {
+            setScenario(data);
+          } else {
+            setScenario(scenariosLocal[scenarioKey] || null);
+          }
+          setScenarioLoading(false);
+        })
+        .catch(() => {
+          setScenario(scenariosLocal[scenarioKey] || null);
+          setScenarioLoading(false);
+        });
+    } else {
+      setScenario(scenariosLocal[scenarioKey] || null);
+      setScenarioLoading(false);
+    }
+  }, [scenarioKey]);
 
   const prev = sessionNum === 1
     ? weekNum > 1 ? { l: levelNum, w: weekNum - 1, s: 2 } : null
@@ -242,8 +270,12 @@ export default function ScenarioPage() {
         );
       })()}
 
-      {/* No scenario fallback */}
-      {!scenario ? (
+      {/* Loading */}
+      {scenarioLoading ? (
+        <div className="text-center py-12 bg-white rounded-2xl border border-border">
+          <p className="text-base text-gray-400 animate-pulse">جارٍ تحميل السيناريو...</p>
+        </div>
+      ) : !scenario ? (
         <div className="text-center py-12 bg-white rounded-2xl border border-border">
           <span className="text-5xl block mb-4">📖</span>
           <p className="text-base text-gray-600 mb-3">سيتم إضافة هذا السيناريو قريبًا</p>
