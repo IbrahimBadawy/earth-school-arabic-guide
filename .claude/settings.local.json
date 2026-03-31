@@ -11,7 +11,12 @@
       "Bash(do sed:*)",
       "Bash(echo \"Updated: $f\")",
       "Bash(done)",
-      "Bash(xxd -l 20 -s 0 src/components/layout/AppShell.jsx)"
+      "Bash(xxd -l 20 -s 0 src/components/layout/AppShell.jsx)",
+      "Bash(__NEW_LINE_ebc7a16eb736a8ac__ sed:*)",
+      "Bash(sed -i \"s/اصنعوا بطاقة ''كلمات أحبها من القرآن''/اصنعوا بطاقة ''كلمات أحبها من القصص''/g\" level2-weeks2-12.js)",
+      "Bash(sed -i \"s/قراءة قصة مع محاولة قراءة بعض الكلمات القرآنية/قراءة قصة مع محاولة قراءة بعض كلمات القصة/g\" level2-weeks2-12.js)",
+      "Bash(sed -i \"s/لعبة ''أنا أقرأ من القرآن''/لعبة ''أنا أقرأ من القصة''/g\" level2-weeks2-12.js)",
+      "Bash(sed -i \"s/بقراءته القرآنية/بقراءته/g\" level2-weeks2-12.js)"
     ]
   }
 }

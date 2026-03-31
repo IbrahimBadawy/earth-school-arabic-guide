@@ -276,8 +276,8 @@ const week1Scenarios = {
     id: "L2-W1-S2", level: 2, week: 1, session: 2, letter: "ا", totalDuration: 45,
     blocks: [
       {
-        order: 1, title: "مجلس القرآن", duration: 8, type: "quran",
-        description: "قراءة قصيرة من القرآن الكريم أو قصة نبوية مع ربطها بالحرف",
+        order: 1, title: "قراءة القصة", duration: 8, type: "story",
+        description: "قراءة قصة من مكتبة المدرسة مع ربطها بالحرف",
         steps: [
           "ابدئي بالبسملة والاستعاذة",
           "اقرئي آية قصيرة أو سورة قصيرة (مثل سورة الفاتحة أو الإخلاص)",
@@ -289,7 +289,7 @@ const week1Scenarios = {
       },
       {
         order: 2, title: "نشاط متعلق", duration: 7, type: "activity",
-        description: "نشاط يربط بين المحتوى القرآني ومهارات اللغة",
+        description: "نشاط يربط بين القصة ومهارات اللغة",
         steps: [
           "اكتبي كلمة من الآية على السبورة (مثل: الله، أحد، الناس)",
           "حللي الكلمة مع الأطفال: ما الحروف فيها؟",
