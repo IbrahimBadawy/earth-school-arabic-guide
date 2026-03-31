@@ -18,7 +18,7 @@ export default function MaterialsPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-gray-900">الأدوات والمواد</h1>
         <p className="text-base text-gray-500 mt-1">قائمة المواد المطلوبة لتنفيذ الأنشطة</p>
@@ -37,15 +37,15 @@ export default function MaterialsPage() {
         const filteredItems = filterLevel === 0 ? cat.items : cat.items.filter((item) => item.levels.includes(filterLevel));
         if (filteredItems.length === 0) return null;
         return (
-          <motion.div key={catIdx} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: catIdx * 0.05 }} className="bg-white rounded-xl border border-border p-4">
-            <h2 className="font-bold text-sm text-gray-800 mb-3 flex items-center gap-2">
+          <motion.div key={catIdx} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: catIdx * 0.05 }} className="bg-white rounded-2xl border border-border p-6">
+            <h2 className="font-bold text-base text-gray-800 mb-3 flex items-center gap-2">
               <span className="text-lg">{cat.icon}</span>{cat.name}
             </h2>
             <div className="space-y-1">
               {filteredItems.map((item, itemIdx) => {
                 const key = `${catIdx}-${itemIdx}`;
                 return (
-                  <label key={itemIdx} className={`flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-colors ${checklist[key] ? 'bg-green-50' : 'hover:bg-gray-50'}`}>
+                  <label key={itemIdx} className={`flex items-center gap-4 px-3 py-2 rounded-lg cursor-pointer transition-colors ${checklist[key] ? 'bg-green-50' : 'hover:bg-gray-50'}`}>
                     <input type="checkbox" checked={!!checklist[key]} onChange={() => toggleCheck(catIdx, itemIdx)} className="w-4 h-4 rounded accent-primary" />
                     <span className={`flex-1 text-sm ${checklist[key] ? 'line-through text-gray-400' : 'text-gray-700'}`}>{item.name}</span>
                     <span className="text-xs text-gray-400">{item.quantity}</span>

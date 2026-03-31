@@ -15,20 +15,20 @@ export default function GeneralObjectivesPage() {
   const [activeTab, setActiveTab] = useState('shared');
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">الأهداف العامة</h1>
-        <p className="text-base text-gray-500 mt-1">الأهداف الرئيسية لمنهج اللغة العربية</p>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">الأهداف العامة</h1>
+        <p className="text-base text-gray-500">الأهداف الرئيسية لمنهج اللغة العربية</p>
       </div>
 
-      <div className="flex gap-2 overflow-x-auto pb-1 no-print">
+      <div className="flex gap-3 overflow-x-auto pb-2 no-print">
         {tabs.map((tab) => (
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+            className={`px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
               activeTab === tab.key
-                ? 'bg-primary text-white'
+                ? 'bg-primary text-white shadow-sm'
                 : 'bg-white text-gray-600 border border-border hover:bg-gray-50'
             }`}
           >
@@ -38,44 +38,38 @@ export default function GeneralObjectivesPage() {
       </div>
 
       <AnimatePresence mode="wait">
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.15 }}
-        >
+        <motion.div key={activeTab} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
           {activeTab === 'shared' ? (
-            <div className="space-y-3">
-              <p className="text-sm text-gray-500">{objectives.shared.description}</p>
+            <div className="space-y-4">
+              <p className="text-base text-gray-500 leading-relaxed mb-2">{objectives.shared.description}</p>
               {objectives.shared.objectives.map((obj, i) => (
-                <div key={obj.id} className="bg-white rounded-xl border border-border p-4 flex gap-3 items-start">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary text-sm font-bold">
+                <div key={obj.id} className="bg-white rounded-2xl border border-border p-6 flex gap-4 items-start">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold">
                     {i + 1}
                   </div>
                   <div>
-                    <h4 className="font-semibold text-sm text-gray-800">{obj.title}</h4>
-                    <p className="text-xs text-gray-500 mt-1 leading-relaxed">{obj.description}</p>
-                    <span className="inline-block mt-1 text-xs px-2 py-0.5 rounded bg-gray-100 text-gray-500">{obj.stage}</span>
+                    <h4 className="font-bold text-base text-gray-800 mb-1.5">{obj.title}</h4>
+                    <p className="text-sm text-gray-600 leading-loose">{obj.description}</p>
+                    <span className="inline-block mt-2 text-xs px-3 py-1 rounded-lg bg-gray-100 text-gray-500">{obj.stage}</span>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-6">
               {objectives.levels[activeTab].domains.map((domain, i) => (
-                <div key={i} className="bg-white rounded-xl border border-border p-4">
-                  <h4 className="font-bold text-sm mb-3 flex items-center gap-2" style={{ color: levelColors[activeTab] }}>
-                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: levelColors[activeTab] }} />
+                <div key={i} className="bg-white rounded-2xl border border-border p-6">
+                  <h4 className="font-bold text-base mb-5 flex items-center gap-2.5" style={{ color: levelColors[activeTab] }}>
+                    <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: levelColors[activeTab] }} />
                     {domain.name}
                   </h4>
-                  <ul className="space-y-2">
+                  <ul className="space-y-4">
                     {domain.objectives.map((obj, j) => (
-                      <li key={j} className="flex items-start gap-2 text-sm text-gray-600">
-                        <span className="flex-shrink-0 w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold text-white mt-0.5" style={{ backgroundColor: levelColors[activeTab] + 'CC' }}>
+                      <li key={j} className="flex items-start gap-3 text-base text-gray-700">
+                        <span className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white mt-0.5" style={{ backgroundColor: levelColors[activeTab] + 'CC' }}>
                           {j + 1}
                         </span>
-                        <span className="leading-relaxed">{obj}</span>
+                        <span className="leading-loose">{obj}</span>
                       </li>
                     ))}
                   </ul>

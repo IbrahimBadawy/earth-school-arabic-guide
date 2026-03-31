@@ -47,7 +47,7 @@ export default function CalendarPage() {
   const color = levelColors[selectedLevel];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-gray-900">الخطة الزمنية</h1>
         <p className="text-base text-gray-500 mt-1">
@@ -74,21 +74,21 @@ export default function CalendarPage() {
       </div>
 
       {/* Level description */}
-      <div className="bg-white rounded-xl border border-border p-4 text-sm text-gray-600">
+      <div className="bg-white rounded-2xl border border-border p-6 text-sm text-gray-600">
         {selectedLevel === 1 && 'المستوى الأول: حرف جديد كل أسبوع مع مراجعة الحروف السابقة. المحاور: الوعي الصوتي والبصري وما قبل الكتابة.'}
         {selectedLevel === 2 && 'المستوى الثاني: التركيز على تحليل الأصوات ودمجها والحركات ومواضع الحروف والبدء بالقراءة والكتابة.'}
         {selectedLevel === 3 && 'المستوى الثالث: القراءة المستقلة والكتابة المتصلة وتكوين الجمل والمهارات اللغوية المتقدمة.'}
       </div>
 
       {/* Weeks Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {calendar.weeks.map((week, i) => (
           <motion.div
             key={week.weekNumber}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: i * 0.03 }}
-            className={`rounded-xl border bg-white overflow-hidden transition-all hover:shadow-sm ${
+            className={`rounded-2xl border bg-white overflow-hidden transition-all hover:shadow-sm ${
               currentWeek === week.weekNumber ? 'ring-2 ring-offset-1' : ''
             }`}
             style={{ ringColor: color.main }}
@@ -100,7 +100,7 @@ export default function CalendarPage() {
                 <span className="w-6 h-6 rounded-md flex items-center justify-center text-white text-xs font-bold" style={{ backgroundColor: color.main }}>
                   {toArabicNumerals(week.weekNumber)}
                 </span>
-                <span className="text-sm font-semibold text-gray-800">الأسبوع {toArabicNumerals(week.weekNumber)}</span>
+                <span className="text-base font-semibold text-gray-800">الأسبوع {toArabicNumerals(week.weekNumber)}</span>
               </div>
               {selectedLevel === 1 && (
                 <span className="text-2xl font-bold" style={{ color: color.main }}>{week.letter}</span>

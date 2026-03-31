@@ -8,7 +8,7 @@
   --color-secondary-light: #E8C9A0;
   --color-accent: #7EC8E3;
   --color-accent-light: #B8E0F0;
-  --color-bg: #FAFAF5;
+  --color-bg: #F8F8F4;
   --color-surface: #FFFFFF;
   --color-surface-hover: #F5F5F0;
   --color-text: #1a1a1a;
@@ -40,13 +40,14 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   min-height: 100vh;
-  line-height: 1.8;
+  line-height: 1.9;
   font-size: 16px;
+  -webkit-font-smoothing: antialiased;
 }
 
 @media (min-width: 1024px) {
   #main-content {
-    margin-right: 14rem;
+    margin-right: 15rem;
   }
 }
 

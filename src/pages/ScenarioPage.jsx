@@ -41,13 +41,13 @@ export default function ScenarioPage() {
     : { l: levelNum, w: weekNum, s: 2 };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Selector Controls */}
-      <div className="bg-white rounded-xl border border-border p-5 space-y-4 no-print">
+      <div className="bg-white rounded-2xl border border-border p-6 space-y-4 no-print">
         <h1 className="text-xl font-bold text-gray-900">سيناريو اليوم</h1>
 
         {/* Level */}
-        <div className="flex items-center gap-3 flex-wrap">
+        <div className="flex items-center gap-4 flex-wrap">
           <label className="text-sm font-semibold text-gray-600 min-w-[70px]">المستوى:</label>
           <div className="flex gap-2">
             {[1, 2, 3].map((l) => (
@@ -68,7 +68,7 @@ export default function ScenarioPage() {
         </div>
 
         {/* Week */}
-        <div className="flex items-center gap-3 flex-wrap">
+        <div className="flex items-center gap-4 flex-wrap">
           <label className="text-sm font-semibold text-gray-600 min-w-[70px]">الأسبوع:</label>
           <div className="flex gap-1.5 flex-wrap">
             {calendar.weeks.map((w) => (
@@ -89,7 +89,7 @@ export default function ScenarioPage() {
         </div>
 
         {/* Session / Day */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <label className="text-sm font-semibold text-gray-600 min-w-[70px]">اليوم:</label>
           <div className="flex gap-2">
             {[1, 2].map((s) => (
@@ -111,7 +111,7 @@ export default function ScenarioPage() {
       </div>
 
       {/* Current Info Banner */}
-      <div className="flex items-center justify-between flex-wrap gap-3 px-1">
+      <div className="flex items-center justify-between flex-wrap gap-4 px-1">
         <div className="flex items-center gap-2 flex-wrap">
           <span className="px-3 py-1.5 rounded-lg text-sm font-bold text-white" style={{ backgroundColor: color.main }}>{color.name}</span>
           <span className="text-base text-gray-600">
@@ -128,7 +128,7 @@ export default function ScenarioPage() {
 
       {/* No scenario fallback */}
       {!scenario ? (
-        <div className="text-center py-12 bg-white rounded-xl border border-border">
+        <div className="text-center py-12 bg-white rounded-2xl border border-border">
           <span className="text-5xl block mb-4">📖</span>
           <p className="text-base text-gray-600 mb-2">سيتم إضافة هذا السيناريو قريبًا</p>
           <p className="text-sm text-gray-400">يمكنك اختيار أسبوع آخر أو زيارة مكتبة الأنشطة</p>
@@ -137,7 +137,7 @@ export default function ScenarioPage() {
       ) : (
         <>
           {/* Timeline Bar */}
-          <div className="bg-white rounded-xl border border-border p-5">
+          <div className="bg-white rounded-2xl border border-border p-6">
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm text-gray-500">المدة الإجمالية: <strong className="text-gray-800">{formatDuration(scenario.blocks.reduce((s, b) => s + b.duration, 0))}</strong></span>
               <button onClick={() => window.print()} className="no-print px-4 py-1.5 text-sm bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors">🖨️ طباعة</button>
@@ -155,7 +155,7 @@ export default function ScenarioPage() {
                 );
               })}
             </div>
-            <div className="flex gap-4 mt-3 flex-wrap">
+            <div className="flex gap-6 mt-3 flex-wrap">
               {scenario.blocks.map((block, i) => {
                 const ts = typeStyles[block.type] || typeStyles.activity;
                 return (
@@ -174,9 +174,9 @@ export default function ScenarioPage() {
               const isOpen = expandedBlock === null || expandedBlock === i;
 
               return (
-                <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.05 }} className={`bg-white rounded-xl border overflow-hidden ${expandedBlock === i ? ts.border : 'border-border'}`}>
-                  <button onClick={() => setExpandedBlock(expandedBlock === i ? null : i)} className="w-full px-5 py-4 flex items-center gap-4 text-right hover:bg-gray-50/50 transition-colors">
-                    <span className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl ${ts.bg}`}>{ts.icon}</span>
+                <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.05 }} className={`bg-white rounded-2xl border overflow-hidden ${expandedBlock === i ? ts.border : 'border-border'}`}>
+                  <button onClick={() => setExpandedBlock(expandedBlock === i ? null : i)} className="w-full px-5 py-4 flex items-center gap-6 text-right hover:bg-gray-50/50 transition-colors">
+                    <span className={`w-10 h-10 rounded-2xl flex items-center justify-center text-xl ${ts.bg}`}>{ts.icon}</span>
                     <div className="flex-1 text-right">
                       <h3 className="font-bold text-base text-gray-800">{block.title}</h3>
                       <p className="text-sm text-gray-500 mt-0.5 line-clamp-1">{block.description}</p>
@@ -195,7 +195,7 @@ export default function ScenarioPage() {
                               <h4 className="text-sm font-bold text-gray-600 mb-3">الخطوات:</h4>
                               <ol className="space-y-2.5">
                                 {block.steps.map((step, j) => (
-                                  <li key={j} className="flex items-start gap-3 text-base text-gray-700">
+                                  <li key={j} className="flex items-start gap-4 text-base text-gray-700">
                                     <span className="flex-shrink-0 w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold text-white mt-0.5" style={{ backgroundColor: color.main + 'CC' }}>{toArabicNumerals(j + 1)}</span>
                                     <span className="leading-relaxed">{step}</span>
                                   </li>
@@ -218,7 +218,7 @@ export default function ScenarioPage() {
 
                           {/* Tips */}
                           {block.tips?.length > 0 && (
-                            <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
+                            <div className="bg-blue-50 rounded-2xl p-6 border border-blue-100">
                               <h4 className="text-sm font-bold text-blue-700 mb-2">💡 نصائح للمعلمة:</h4>
                               <ul className="space-y-1.5">
                                 {block.tips.map((tip, j) => (
@@ -239,10 +239,10 @@ export default function ScenarioPage() {
           {/* Prev / Next */}
           <div className="flex justify-between items-center pt-4 no-print">
             {prev ? (
-              <Link to={`/scenario/${prev.l}/${prev.w}/${prev.s}`} className="px-5 py-2.5 bg-white border border-border rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">→ الفقرة السابقة</Link>
+              <Link to={`/scenario/${prev.l}/${prev.w}/${prev.s}`} className="px-5 py-2.5 bg-white border border-border rounded-2xl text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">→ الفقرة السابقة</Link>
             ) : <div />}
             {next ? (
-              <Link to={`/scenario/${next.l}/${next.w}/${next.s}`} className="px-5 py-2.5 bg-primary text-white rounded-xl text-sm font-medium hover:bg-primary-dark transition-colors">الفقرة التالية ←</Link>
+              <Link to={`/scenario/${next.l}/${next.w}/${next.s}`} className="px-5 py-2.5 bg-primary text-white rounded-2xl text-sm font-medium hover:bg-primary-dark transition-colors">الفقرة التالية ←</Link>
             ) : <div />}
           </div>
         </>

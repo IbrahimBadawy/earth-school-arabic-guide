@@ -19,52 +19,52 @@ export default function DetailedObjectivesPage() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">الأهداف التفصيلية</h1>
-        <p className="text-base text-gray-500 mt-1">أهداف قابلة للقياس مع معايير التقييم</p>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">الأهداف التفصيلية</h1>
+        <p className="text-base text-gray-500">أهداف قابلة للقياس مع معايير التقييم</p>
       </div>
 
-      <div className="flex flex-wrap gap-3 no-print">
-        <div className="flex gap-1.5 items-center">
-          <span className="text-xs text-gray-500">المستوى:</span>
-          <button onClick={() => setFilterLevel(0)} className={`px-3 py-1.5 rounded-lg text-xs font-medium ${filterLevel === 0 ? 'bg-primary text-white' : 'bg-white border border-border text-gray-600'}`}>الكل</button>
+      <div className="bg-white rounded-2xl border border-border p-5 space-y-4 no-print">
+        <div className="flex items-center gap-3 flex-wrap">
+          <span className="text-sm font-semibold text-gray-600">المستوى:</span>
+          <button onClick={() => setFilterLevel(0)} className={`px-4 py-2 rounded-lg text-sm font-medium ${filterLevel === 0 ? 'bg-primary text-white' : 'bg-gray-50 border border-border text-gray-600'}`}>الكل</button>
           {[1, 2, 3].map((l) => (
-            <button key={l} onClick={() => setFilterLevel(l)} className="px-3 py-1.5 rounded-lg text-xs font-medium" style={{ backgroundColor: filterLevel === l ? levelColors[l] : 'white', color: filterLevel === l ? 'white' : levelColors[l], border: filterLevel === l ? 'none' : '1px solid #e5e5e5' }}>
+            <button key={l} onClick={() => setFilterLevel(l)} className="px-4 py-2 rounded-lg text-sm font-medium" style={{ backgroundColor: filterLevel === l ? levelColors[l] : '#f9fafb', color: filterLevel === l ? 'white' : levelColors[l], border: `1px solid ${filterLevel === l ? levelColors[l] : '#e5e5e5'}` }}>
               م{l === 1 ? '١' : l === 2 ? '٢' : '٣'}
             </button>
           ))}
         </div>
-        <div className="flex gap-1.5 items-center">
-          <span className="text-xs text-gray-500">المحور:</span>
-          <select value={filterDomain} onChange={(e) => setFilterDomain(e.target.value)} className="px-3 py-1.5 rounded-lg text-xs border border-border bg-white text-gray-700">
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-semibold text-gray-600">المحور:</span>
+          <select value={filterDomain} onChange={(e) => setFilterDomain(e.target.value)} className="px-4 py-2 rounded-lg text-sm border border-border bg-gray-50 text-gray-700">
             <option value="الكل">الكل</option>
             {domains.map((d) => <option key={d} value={d}>{d}</option>)}
           </select>
         </div>
       </div>
 
-      <p className="text-xs text-gray-400">{toArabicNumerals(filtered.length)} هدف</p>
+      <p className="text-sm text-gray-400">{toArabicNumerals(filtered.length)} هدف</p>
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         {filtered.map((obj, i) => (
-          <motion.div key={obj.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: Math.min(i * 0.03, 0.4) }} className="bg-white rounded-xl border border-border p-4">
-            <div className="flex items-start gap-3">
-              <span className="flex-shrink-0 px-2 py-1 rounded-md text-xs font-bold text-white" style={{ backgroundColor: levelColors[obj.level] }}>م{obj.level === 1 ? '١' : obj.level === 2 ? '٢' : '٣'}</span>
-              <div className="flex-1 space-y-2">
+          <motion.div key={obj.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: Math.min(i * 0.03, 0.4) }} className="bg-white rounded-2xl border border-border p-6">
+            <div className="flex items-start gap-4">
+              <span className="flex-shrink-0 px-2.5 py-1.5 rounded-lg text-xs font-bold text-white" style={{ backgroundColor: levelColors[obj.level] }}>م{obj.level === 1 ? '١' : obj.level === 2 ? '٢' : '٣'}</span>
+              <div className="flex-1 space-y-3">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-xs px-2 py-0.5 rounded bg-gray-100 text-gray-600 font-medium">{obj.domain}</span>
+                  <span className="text-xs px-3 py-1 rounded-lg bg-gray-100 text-gray-600 font-medium">{obj.domain}</span>
                   <span className="text-xs text-gray-400">{obj.id}</span>
-                  {obj.weekIntroduced && <span className="text-xs px-2 py-0.5 rounded bg-blue-50 text-blue-600">أسبوع {toArabicNumerals(obj.weekIntroduced)}</span>}
+                  {obj.weekIntroduced && <span className="text-xs px-3 py-1 rounded-lg bg-blue-50 text-blue-600">أسبوع {toArabicNumerals(obj.weekIntroduced)}</span>}
                 </div>
-                <p className="text-sm text-gray-800">{obj.objective}</p>
+                <p className="text-base text-gray-800 leading-relaxed">{obj.objective}</p>
                 {obj.measurable && (
-                  <div className="bg-green-50 rounded-lg p-2.5 text-xs text-gray-600">
-                    <strong className="text-green-700">معيار القياس:</strong> {obj.measurable}
+                  <div className="bg-green-50 rounded-xl p-4 border border-green-100">
+                    <p className="text-sm text-gray-700"><strong className="text-green-700">📏 معيار القياس:</strong> {obj.measurable}</p>
                   </div>
                 )}
                 {obj.assessmentMethod && (
-                  <p className="text-xs text-gray-400"><strong>طريقة التقييم:</strong> {obj.assessmentMethod}</p>
+                  <p className="text-sm text-gray-500"><strong className="text-gray-600">🔍 طريقة التقييم:</strong> {obj.assessmentMethod}</p>
                 )}
               </div>
             </div>

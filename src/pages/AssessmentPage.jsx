@@ -17,7 +17,7 @@ export default function AssessmentPage() {
   const [rubricLevel, setRubricLevel] = useState(selectedLevel);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-gray-900">التقييم</h1>
         <p className="text-base text-gray-500 mt-1">أدوات ومعايير تقييم شاملة</p>
@@ -32,13 +32,13 @@ export default function AssessmentPage() {
       <AnimatePresence mode="wait">
         <motion.div key={activeTab} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
           {activeTab === 'placement' && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {assessment.placementCriteria.levels.map((level) => (
-                <div key={level.level} className="bg-white rounded-xl border border-border p-4">
+                <div key={level.level} className="bg-white rounded-2xl border border-border p-6">
                   <div className="flex items-center gap-2 mb-3">
                     <span className="w-7 h-7 rounded-md flex items-center justify-center text-white text-xs font-bold" style={{ backgroundColor: levelColors[level.level] }}>{level.level}</span>
                     <div>
-                      <h3 className="font-semibold text-sm text-gray-800">{level.name}</h3>
+                      <h3 className="font-semibold text-base text-gray-800">{level.name}</h3>
                       <p className="text-xs text-gray-400">{level.ageRange}</p>
                     </div>
                   </div>
@@ -56,11 +56,11 @@ export default function AssessmentPage() {
           )}
 
           {activeTab === 'ongoing' && (
-            <div className="space-y-3">
+            <div className="space-y-4">
               {assessment.ongoingAssessment.methods.map((method, i) => (
-                <div key={i} className="bg-white rounded-xl border border-border p-4">
+                <div key={i} className="bg-white rounded-2xl border border-border p-6">
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-semibold text-sm text-gray-800">{method.name}</h3>
+                    <h3 className="font-semibold text-base text-gray-800">{method.name}</h3>
                     <span className="text-xs px-2 py-0.5 rounded bg-primary/10 text-primary font-medium">{method.frequency}</span>
                   </div>
                   <p className="text-xs text-gray-500 mb-2">{method.description}</p>
@@ -83,7 +83,7 @@ export default function AssessmentPage() {
                   </button>
                 ))}
               </div>
-              <div className="flex flex-wrap gap-3 text-xs">
+              <div className="flex flex-wrap gap-4 text-xs">
                 {assessment.rubrics.proficiencyLevels.map((pl) => (
                   <span key={pl.level} className="flex items-center gap-1">
                     <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: pl.color }} />
@@ -92,8 +92,8 @@ export default function AssessmentPage() {
                 ))}
               </div>
               {assessment.rubrics.levelRubrics[rubricLevel]?.map((rubric, i) => (
-                <div key={i} className="bg-white rounded-xl border border-border overflow-hidden">
-                  <div className="px-4 py-3 font-semibold text-sm text-gray-800 border-b border-gray-100" style={{ backgroundColor: levelColors[rubricLevel] + '08' }}>{rubric.skill}</div>
+                <div key={i} className="bg-white rounded-2xl border border-border overflow-hidden">
+                  <div className="px-4 py-3 font-semibold text-base text-gray-800 border-b border-gray-100" style={{ backgroundColor: levelColors[rubricLevel] + '08' }}>{rubric.skill}</div>
                   <div className="divide-y divide-gray-50">
                     {assessment.rubrics.proficiencyLevels.map((pl) => (
                       <div key={pl.level} className="px-4 py-3 flex gap-2">
@@ -111,10 +111,10 @@ export default function AssessmentPage() {
           )}
 
           {activeTab === 'progress' && (
-            <div className="bg-white rounded-xl border border-border p-5">
-              <h3 className="font-semibold text-sm text-gray-800 mb-2">{assessment.progressTemplate.title}</h3>
+            <div className="bg-white rounded-2xl border border-border p-6">
+              <h3 className="font-semibold text-base text-gray-800 mb-2">{assessment.progressTemplate.title}</h3>
               <p className="text-xs text-gray-500 mb-4">{assessment.progressTemplate.note}</p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                 {assessment.progressTemplate.childFields.map((field, i) => (
                   <div key={i} className="bg-gray-50 rounded-lg p-2.5">
                     <label className="text-xs text-gray-400 block mb-1">{field}</label>

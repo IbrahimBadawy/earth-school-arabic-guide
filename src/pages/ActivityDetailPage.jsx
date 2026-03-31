@@ -46,8 +46,8 @@ export default function ActivityDetailPage() {
         <p className="text-sm text-gray-600 mt-3 leading-relaxed">{activity.description}</p>
       </div>
 
-      <div className="bg-white rounded-xl border border-border p-4">
-        <h2 className="font-bold text-sm text-gray-800 mb-3">📝 خطوات التنفيذ</h2>
+      <div className="bg-white rounded-2xl border border-border p-6">
+        <h2 className="font-bold text-base text-gray-800 mb-3">📝 خطوات التنفيذ</h2>
         <ol className="space-y-2">
           {activity.steps.map((step, i) => (
             <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
@@ -58,26 +58,26 @@ export default function ActivityDetailPage() {
         </ol>
       </div>
 
-      <div className="bg-white rounded-xl border border-border p-4">
-        <h2 className="font-bold text-sm text-gray-800 mb-2">🎒 الأدوات</h2>
+      <div className="bg-white rounded-2xl border border-border p-6">
+        <h2 className="font-bold text-base text-gray-800 mb-2">🎒 الأدوات</h2>
         <div className="flex flex-wrap gap-1.5">
           {activity.materials.map((mat, i) => <span key={i} className="px-2 py-1 rounded-md text-xs bg-amber-50 text-amber-700 border border-amber-100">{mat}</span>)}
         </div>
       </div>
 
-      <div className="bg-white rounded-xl border border-border p-4">
-        <h2 className="font-bold text-sm text-gray-800 mb-2">🔄 تنويعات</h2>
+      <div className="bg-white rounded-2xl border border-border p-6">
+        <h2 className="font-bold text-base text-gray-800 mb-2">🔄 تنويعات</h2>
         <ul className="space-y-1.5">
           {activity.variations.map((v, i) => <li key={i} className="text-sm text-gray-600 flex items-start gap-1.5"><span className="text-primary">◆</span>{v}</li>)}
         </ul>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div className="bg-green-50 rounded-xl border border-green-100 p-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="bg-green-50 rounded-2xl border border-green-100 p-6">
           <h3 className="font-bold text-sm text-green-700 mb-1">🌱 تبسيط</h3>
           <p className="text-xs text-green-600 leading-relaxed">{activity.differentiationTips.easier}</p>
         </div>
-        <div className="bg-orange-50 rounded-xl border border-orange-100 p-4">
+        <div className="bg-orange-50 rounded-2xl border border-orange-100 p-6">
           <h3 className="font-bold text-sm text-orange-700 mb-1">🌟 تحدي</h3>
           <p className="text-xs text-orange-600 leading-relaxed">{activity.differentiationTips.harder}</p>
         </div>

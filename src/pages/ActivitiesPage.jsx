@@ -29,15 +29,15 @@ export default function ActivitiesPage() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-gray-900">مكتبة الأنشطة</h1>
         <p className="text-base text-gray-500 mt-1">{toArabicNumerals(activities.length)} نشاط وألعاب تعليمية متنوعة</p>
       </div>
 
-      <div className="space-y-3 no-print">
+      <div className="space-y-4 no-print">
         <input type="text" placeholder="ابحثي عن نشاط..." value={search} onChange={(e) => setSearch(e.target.value)}
-          className="w-full px-4 py-2.5 rounded-xl border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary placeholder:text-gray-400" />
+          className="w-full px-4 py-2.5 rounded-2xl border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary placeholder:text-gray-400" />
 
         <div className="flex flex-wrap gap-1.5">
           <button onClick={() => setFilterSkill('الكل')} className={`px-2.5 py-1 rounded-lg text-xs font-medium ${filterSkill === 'الكل' ? 'bg-primary text-white' : 'bg-white border border-border text-gray-600'}`}>الكل</button>
@@ -56,18 +56,18 @@ export default function ActivitiesPage() {
 
       <p className="text-xs text-gray-400">{toArabicNumerals(filtered.length)} نتيجة</p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {filtered.map((act, i) => {
           const skill = skillLabels[act.targetSkill] || { label: act.targetSkill, color: '#888' };
           return (
             <motion.div key={act.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: Math.min(i * 0.03, 0.3) }}>
-              <Link to={`/activities/${act.id}`} className="block bg-white rounded-xl border border-border p-4 hover:shadow-sm hover:border-primary/20 transition-all group">
+              <Link to={`/activities/${act.id}`} className="block bg-white rounded-2xl border border-border p-6 hover:shadow-sm hover:border-primary/20 transition-all group">
                 <div className="flex items-start justify-between mb-2">
-                  <h3 className="font-semibold text-sm text-gray-800 group-hover:text-primary">{act.name}</h3>
+                  <h3 className="font-semibold text-base text-gray-800 group-hover:text-primary">{act.name}</h3>
                   <span className="px-2 py-0.5 rounded text-[10px] font-medium" style={{ backgroundColor: skill.color + '15', color: skill.color }}>{skill.label}</span>
                 </div>
                 <p className="text-xs text-gray-500 mb-2 line-clamp-2">{act.description}</p>
-                <div className="flex items-center gap-3 text-[10px] text-gray-400">
+                <div className="flex items-center gap-4 text-[10px] text-gray-400">
                   <span>⏱ {toArabicNumerals(act.duration)} د</span>
                   <span>👥 {act.groupSize}</span>
                   <div className="flex gap-0.5 mr-auto">
