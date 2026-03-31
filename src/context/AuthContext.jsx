@@ -17,16 +17,18 @@ export function AuthProvider({ children }) {
 
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      if (session?.user) fetchProfile(session.user.id);
-      else setLoading(false);
+      if (session?.user) {
+        setUser(session.user);
+        fetchProfile(session.user.id);
+      } else {
+        setLoading(false);
+      }
     });
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-      if (session?.user) fetchProfile(session.user.id);
-      else {
+    // Listen for auth changes (logout, token refresh)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT') {
+        setUser(null);
         setProfile(null);
         setAssignments([]);
         setLoading(false);
@@ -65,6 +67,11 @@ export function AuthProvider({ children }) {
   async function signIn(email, password) {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;
+
+    // Wait for profile to load before returning
+    setUser(data.user);
+    await fetchProfile(data.user.id);
+
     return data;
   }
 
@@ -79,7 +86,6 @@ export function AuthProvider({ children }) {
   const isTeacher = profile?.role === 'teacher';
   const isAuthenticated = !!user && !!profile;
 
-  // Get teacher's assigned levels and days
   const assignedLevels = [...new Set(assignments.map(a => a.level))];
   const assignedDays = [...new Set(assignments.map(a => a.day))];
 
