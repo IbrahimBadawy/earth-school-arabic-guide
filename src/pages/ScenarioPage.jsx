@@ -6,6 +6,77 @@ import { useAppContext } from '../context/AppContext';
 import calendar from '../data/unit-calendar.json';
 import scenariosData from '../data/daily-scenarios/index';
 
+// Generate daily goal and summary based on level, week, session
+function getDailyInfo(levelNum, weekNum, sessionNum, weekData) {
+  const isIntro = sessionNum === 1;
+
+  if (levelNum === 1) {
+    const letter = weekData?.letter || '';
+    const letterName = weekData?.letterName || '';
+    if (weekNum === 12) {
+      return {
+        goal: isIntro
+          ? `التعرف على حرفي الميم والنون وأصواتهما وأشكالهما`
+          : `مراجعة شاملة لجميع الحروف المتعلمة (١٣ حرفًا) والاحتفال بالإنجاز`,
+        summary: isIntro
+          ? `اليوم نتعرف على آخر حرفين في الوحدة: الميم والنون. نقارن بينهما في الصوت والشكل مع مراجعة الحروف السابقة.`
+          : `اليوم مراجعة ختامية لكل الحروف التي تعلمناها خلال ١٢ أسبوعًا مع أنشطة تجميعية واحتفال.`,
+      };
+    }
+    return {
+      goal: isIntro
+        ? `التعرف على صوت حرف ${letterName} (${letter}) وشكله وتمارين ما قبل الكتابة`
+        : `تعزيز وتثبيت حرف ${letterName} (${letter}) مع مراجعة الحروف السابقة`,
+      summary: isIntro
+        ? `اليوم نبدأ بقراءة قصة ثم نتعرف على حرف ${letterName} من خلال الوعي الصوتي (سماع صوته في الكلمات) والوعي البصري (التعرف على شكله) وأنشطة فنية لتمارين الخطوط.`
+        : `اليوم نعزز ما تعلمناه عن حرف ${letterName} بأنشطة مختلفة ومتنوعة مع مراجعة الحروف السابقة من خلال ألعاب تفاعلية.`,
+    };
+  }
+
+  if (levelNum === 2) {
+    const focusMap = {
+      1: { goal: 'مراجعة الأساسيات وتحليل أصوات بسيطة ودمج صوتين', summary: 'نراجع الحروف المعروفة ونبدأ تحليل الكلمات لأصوات ودمج صوتين لتكوين مقاطع.' },
+      2: { goal: 'دمج أصوات ثنائية وبداية التعرف على الحركات', summary: 'نتدرب على دمج صوتين وثلاثة أصوات ونبدأ التعرف على الفتحة والضمة والكسرة.' },
+      3: { goal: 'إتقان الحركات الثلاث (فتحة، ضمة، كسرة) ونطق الحروف بها', summary: 'نتدرب على نطق الحروف بالحركات المختلفة وقراءة مقاطع بسيطة بالحركات.' },
+      4: { goal: 'التعرف على مواضع الحرف (أول، وسط، آخر) في الكلمة', summary: 'نتعلم أن الحرف يتغير شكله حسب مكانه في الكلمة ونتدرب على التمييز والتصنيف.' },
+      5: { goal: 'قراءة مقاطع ثنائية وثلاثية وكتابة حروف منفصلة', summary: 'نقرأ مقاطع وكلمات بسيطة ونتدرب على كتابة الحروف في صورتها المنفصلة.' },
+      6: { goal: 'دمج ثلاثة أصوات لتكوين كلمات وكتابة كلمات بسيطة', summary: 'نطور مهارة الدمج لتكوين كلمات كاملة ونبدأ بكتابة كلمات بحروف منفصلة.' },
+      7: { goal: 'قراءة كلمات ثنائية وثلاثية بالحركات', summary: 'نقرأ كلمات كاملة بالحركات ونتدرب على فهم المقروء وربطه بالمعنى.' },
+      8: { goal: 'كتابة كلمات بحروف منفصلة وبداية الاتصال', summary: 'نكتب كلمات كاملة ونبدأ بمحاولات ربط الحروف ببعضها في الكتابة.' },
+      9: { goal: 'قراءة جمل قصيرة بالحركات وتعزيز الكتابة', summary: 'ننتقل من قراءة كلمات مفردة إلى جمل قصيرة ونعزز مهارات الكتابة.' },
+      10: { goal: 'تعزيز القراءة والكتابة وتقييم التقدم', summary: 'نراجع كل المهارات المكتسبة ونقيّم مستوى كل طفل في القراءة والكتابة.' },
+      11: { goal: 'مراجعة شاملة لكل مهارات المستوى الثاني', summary: 'مراجعة شاملة: تحليل ودمج، حركات، مواضع، قراءة، وكتابة.' },
+      12: { goal: 'تقييم نهائي ومراجعة واحتفال بالإنجازات', summary: 'اليوم الأخير: تقييم ختامي لكل المهارات واحتفال بنهاية الوحدة.' },
+    };
+    const f = focusMap[weekNum] || focusMap[1];
+    return {
+      goal: isIntro ? f.goal : `تعزيز: ${f.goal}`,
+      summary: isIntro ? f.summary : `نعزز ونثبت ما تعلمناه: ${f.summary}`,
+    };
+  }
+
+  // Level 3
+  const focusMap3 = {
+    1: { goal: 'التمييز بين الحروف المتشابهة في المخرج والمرادفات والأضداد', summary: 'نتعلم التفريق بين الحروف المتشابهة صوتيًّا ونبدأ بالمرادفات والأضداد.' },
+    2: { goal: 'التمييز بين الحروف المتشابهة شكلًا (ب/ت/ث، ج/ح/خ)', summary: 'نتدرب على التمييز بين الحروف المتشابهة في الشكل من خلال أنشطة مقارنة.' },
+    3: { goal: 'الصوت الطويل والقصير والتاء المربوطة والهمزة', summary: 'نتعرف على الفرق بين المد والحركة القصيرة ونبدأ بالتاء المربوطة والهمزة.' },
+    4: { goal: 'الكتابة المتصلة وكتابة كلمات كاملة بالاتصال', summary: 'نتدرب على كتابة الحروف متصلة في كلمات كاملة مع مراعاة اتجاه الكتابة.' },
+    5: { goal: 'ترتيب كلمات لتكوين جمل صحيحة لغويًّا', summary: 'نتعلم بنية الجملة العربية ونتدرب على ترتيب كلمات لتكوين جمل مفيدة.' },
+    6: { goal: 'المرادفات والأضداد وتوسيع المفردات', summary: 'نتعمق في المرادفات والأضداد ونوسع قاموس المفردات الفصحى.' },
+    7: { goal: 'الجذر المشترك وعائلة الكلمة', summary: 'نتعرف على مفهوم الجذر المشترك وكيف تتفرع منه كلمات ذات معانٍ مرتبطة.' },
+    8: { goal: 'قراءة فقرات قصيرة وفهم المقروء', summary: 'ننتقل من قراءة جمل إلى فقرات قصيرة مع أسئلة فهم واستيعاب.' },
+    9: { goal: 'كتابة جمل وصفية وتعبير كتابي', summary: 'نكتب جملًا وصفية تعبر عن أفكارنا ونبدأ بتأليف فقرات قصيرة.' },
+    10: { goal: 'قراءة مستقلة وتعزيز الطلاقة', summary: 'نتدرب على القراءة المستقلة بدون مساعدة ونعزز الطلاقة والسرعة.' },
+    11: { goal: 'تأليف قصة قصيرة ومراجعة المهارات اللغوية', summary: 'كل طفل يؤلف قصة قصيرة خاصة به مع مراجعة كل المهارات اللغوية.' },
+    12: { goal: 'مراجعة شاملة واحتفال ختامي بالإنجازات', summary: 'اليوم الأخير: عرض الأعمال والإنجازات واحتفال بنهاية الوحدة.' },
+  };
+  const f3 = focusMap3[weekNum] || focusMap3[1];
+  return {
+    goal: isIntro ? f3.goal : `تعزيز: ${f3.goal}`,
+    summary: isIntro ? f3.summary : `نعزز ونثبت: ${f3.summary}`,
+  };
+}
+
 const typeStyles = {
   story: { bg: 'bg-green-50', text: 'text-green-700', icon: '📖', border: 'border-green-200' },
   discussion: { bg: 'bg-blue-50', text: 'text-blue-700', icon: '💬', border: 'border-blue-200' },
@@ -125,6 +196,39 @@ export default function ScenarioPage() {
           </div>
         )}
       </div>
+
+      {/* Daily Summary & Goal */}
+      {(() => {
+        const info = getDailyInfo(levelNum, weekNum, sessionNum, weekData);
+        return (
+          <div className="bg-white rounded-2xl border border-border overflow-hidden">
+            {/* Goal */}
+            <div className="p-6 border-b border-border" style={{ backgroundColor: color.main + '08' }}>
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style={{ backgroundColor: color.main + '15' }}>
+                  🎯
+                </div>
+                <div>
+                  <h3 className="font-bold text-base text-gray-800 mb-1">هدف اليوم</h3>
+                  <p className="text-base leading-loose" style={{ color: color.main }}>{info.goal}</p>
+                </div>
+              </div>
+            </div>
+            {/* Summary */}
+            <div className="p-6">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-xl flex-shrink-0">
+                  📋
+                </div>
+                <div>
+                  <h3 className="font-bold text-base text-gray-800 mb-1">ملخص اليوم</h3>
+                  <p className="text-base text-gray-600 leading-loose">{info.summary}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* No scenario fallback */}
       {!scenario ? (
