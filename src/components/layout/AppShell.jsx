@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useAuth } from '../../context/AuthContext';
+import { isSupabaseConfigured } from '../../lib/supabase';
 
 const navItems = [
   { path: '/', label: 'الرئيسية', icon: '🏠', end: true },
@@ -14,6 +16,11 @@ const navItems = [
   { path: '/tips', label: 'نصائح للمعلمات', icon: '💡' },
 ];
 
+const adminItems = [
+  { path: '/admin/users', label: 'إدارة المستخدمين', icon: '👥' },
+  { path: '/admin/content', label: 'تعديل المحتوى', icon: '✏️' },
+];
+
 const mobileNav = [
   { path: '/', label: 'الرئيسية', icon: '🏠', end: true },
   { path: '/calendar', label: 'الخطة', icon: '📅' },
@@ -22,9 +29,34 @@ const mobileNav = [
   { path: '/tips', label: 'نصائح', icon: '💡' },
 ];
 
+function NavItem({ item, onClick }) {
+  return (
+    <NavLink
+      to={item.path}
+      end={item.end}
+      onClick={onClick}
+      className={({ isActive }) =>
+        `flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors ${
+          isActive
+            ? 'bg-primary/10 text-primary font-semibold'
+            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+        }`
+      }
+    >
+      <span className="text-base">{item.icon}</span>
+      <span>{item.label}</span>
+    </NavLink>
+  );
+}
+
 export default function AppShell({ children }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const { profile, isAdmin, signOut, isAuthenticated } = useAuth();
+  const supabaseOn = isSupabaseConfigured();
+
+  // Don't show shell on login page
+  if (location.pathname === '/login') return children;
 
   return (
     <div className="min-h-screen bg-bg">
@@ -36,99 +68,100 @@ export default function AppShell({ children }) {
             <span className="font-bold text-primary text-sm hidden sm:block">مدرسة الأرض</span>
           </Link>
 
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 text-gray-500"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
-            </svg>
-          </button>
+          <div className="flex items-center gap-3">
+            {/* User info */}
+            {supabaseOn && isAuthenticated && (
+              <div className="hidden sm:flex items-center gap-2 text-sm text-gray-500">
+                <span>{profile?.full_name}</span>
+                {isAdmin && <span className="px-2 py-0.5 rounded bg-primary/10 text-primary text-xs font-bold">مدير</span>}
+              </div>
+            )}
+
+            {/* Logout button */}
+            {supabaseOn && isAuthenticated && (
+              <button
+                onClick={signOut}
+                className="hidden sm:block px-3 py-1.5 text-xs text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+              >
+                خروج
+              </button>
+            )}
+
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="lg:hidden w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 text-gray-500"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+              </svg>
+            </button>
+          </div>
         </div>
       </header>
 
       <div className="flex" style={{ paddingTop: '3.5rem' }}>
         {/* Desktop Sidebar */}
-        <aside className="hidden lg:block w-56 fixed right-0 bottom-0 bg-white border-l border-border overflow-y-auto no-print z-30" style={{ top: '3.5rem' }}>
+        <aside className="hidden lg:block w-56 fixed bottom-0 bg-white border-l border-border overflow-y-auto no-print z-30" style={{ top: '3.5rem', right: 0 }}>
           <nav className="p-3 space-y-0.5">
-            {navItems.map((item) => (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                end={item.end}
-                className={({ isActive }) =>
-                  `flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors ${
-                    isActive
-                      ? 'bg-primary/10 text-primary font-semibold'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                  }`
-                }
-              >
-                <span className="text-base">{item.icon}</span>
-                <span>{item.label}</span>
-              </NavLink>
-            ))}
+            {navItems.map((item) => <NavItem key={item.path} item={item} />)}
           </nav>
+
+          {/* Admin Section */}
+          {isAdmin && (
+            <div className="border-t border-border mx-3 pt-3 mt-2">
+              <p className="px-3 mb-2 text-xs font-bold text-gray-400 uppercase">لوحة الإدارة</p>
+              {adminItems.map((item) => <NavItem key={item.path} item={item} />)}
+            </div>
+          )}
+
+          {/* User info + logout at bottom */}
+          {supabaseOn && isAuthenticated && (
+            <div className="border-t border-border mx-3 mt-3 pt-3 pb-4">
+              <div className="px-3 text-xs text-gray-400 mb-1">{profile?.full_name}</div>
+              <button onClick={signOut} className="px-3 py-1.5 text-xs text-red-500 hover:bg-red-50 rounded-lg w-full text-right transition-colors">
+                تسجيل الخروج
+              </button>
+            </div>
+          )}
         </aside>
 
-        {/* Mobile Menu Overlay */}
+        {/* Mobile Menu */}
         <AnimatePresence>
           {menuOpen && (
             <>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.4 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-black z-40 lg:hidden"
-                onClick={() => setMenuOpen(false)}
-              />
-              <motion.div
-                initial={{ x: 280 }}
-                animate={{ x: 0 }}
-                exit={{ x: 280 }}
-                transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-                className="fixed right-0 top-0 bottom-0 w-64 bg-white z-50 lg:hidden shadow-xl"
-              >
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.4 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black z-40 lg:hidden" onClick={() => setMenuOpen(false)} />
+              <motion.div initial={{ x: 280 }} animate={{ x: 0 }} exit={{ x: 280 }} transition={{ type: 'spring', damping: 30, stiffness: 300 }} className="fixed right-0 top-0 bottom-0 w-64 bg-white z-50 lg:hidden shadow-xl">
                 <div className="p-4 border-b border-border flex items-center justify-between">
                   <span className="font-bold text-primary">القائمة</span>
                   <button onClick={() => setMenuOpen(false)} className="text-gray-400 hover:text-gray-600">✕</button>
                 </div>
                 <nav className="p-3 space-y-0.5">
-                  {navItems.map((item) => (
-                    <NavLink
-                      key={item.path}
-                      to={item.path}
-                      end={item.end}
-                      onClick={() => setMenuOpen(false)}
-                      className={({ isActive }) =>
-                        `flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors ${
-                          isActive
-                            ? 'bg-primary/10 text-primary font-semibold'
-                            : 'text-gray-600 hover:bg-gray-50'
-                        }`
-                      }
-                    >
-                      <span>{item.icon}</span>
-                      <span>{item.label}</span>
-                    </NavLink>
-                  ))}
+                  {navItems.map((item) => <NavItem key={item.path} item={item} onClick={() => setMenuOpen(false)} />)}
+                  {isAdmin && (
+                    <>
+                      <div className="border-t border-border pt-3 mt-3">
+                        <p className="px-3 mb-2 text-xs font-bold text-gray-400">لوحة الإدارة</p>
+                        {adminItems.map((item) => <NavItem key={item.path} item={item} onClick={() => setMenuOpen(false)} />)}
+                      </div>
+                    </>
+                  )}
                 </nav>
+                {supabaseOn && isAuthenticated && (
+                  <div className="absolute bottom-0 left-0 right-0 border-t border-border p-4">
+                    <p className="text-xs text-gray-400 mb-2">{profile?.full_name} {isAdmin && '(مدير)'}</p>
+                    <button onClick={() => { signOut(); setMenuOpen(false); }} className="text-xs text-red-500">تسجيل الخروج</button>
+                  </div>
+                )}
               </motion.div>
             </>
           )}
         </AnimatePresence>
 
-        {/* Main Content - proper margin to avoid sidebar */}
+        {/* Main Content */}
         <main className="flex-1 pb-20 lg:pb-8" style={{ minHeight: 'calc(100vh - 3.5rem)' }} id="main-content">
           <div className="max-w-4xl mx-auto px-8 sm:px-12 py-10">
             <AnimatePresence mode="wait">
-              <motion.div
-                key={location.pathname}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
+              <motion.div key={location.pathname} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
                 {children}
               </motion.div>
             </AnimatePresence>
@@ -140,14 +173,7 @@ export default function AppShell({ children }) {
       <nav className="lg:hidden fixed bottom-0 right-0 left-0 h-14 bg-white border-t border-border z-30 no-print">
         <div className="h-full flex items-center justify-around">
           {mobileNav.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              end={item.end}
-              className={({ isActive }) =>
-                `flex flex-col items-center gap-0.5 text-xs ${isActive ? 'text-primary font-semibold' : 'text-gray-400'}`
-              }
-            >
+            <NavLink key={item.path} to={item.path} end={item.end} className={({ isActive }) => `flex flex-col items-center gap-0.5 text-xs ${isActive ? 'text-primary font-semibold' : 'text-gray-400'}`}>
               <span className="text-lg">{item.icon}</span>
               <span>{item.label}</span>
             </NavLink>
