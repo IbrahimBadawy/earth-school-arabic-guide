@@ -114,34 +114,35 @@ export default function ScenarioPage() {
   return (
     <div className="space-y-10">
       {/* Selector Controls */}
-      <div className="bg-white rounded-2xl border border-border p-6 space-y-6 no-print">
-        <h1 className="text-xl font-bold text-gray-900">سيناريو اليوم</h1>
+      <div className="bg-white rounded-2xl border border-border p-8 no-print">
+        <h1 className="text-2xl font-bold text-gray-900 mb-8">سيناريو اليوم</h1>
 
-        {/* Level */}
-        <div className="flex items-center gap-4 flex-wrap">
-          <label className="text-sm font-semibold text-gray-600 min-w-[70px]">المستوى:</label>
-          <div className="flex gap-3">
-            {[1, 2, 3].map((l) => (
-              <button
-                key={l}
-                onClick={() => navigate(`/scenario/${l}/${weekNum}/${sessionNum}`)}
-                className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all"
-                style={{
-                  backgroundColor: l === levelNum ? levelColors[l].main : 'transparent',
-                  color: l === levelNum ? 'white' : levelColors[l].main,
-                  border: `2px solid ${levelColors[l].main}`,
-                }}
-              >
-                {levelColors[l].name}
-              </button>
-            ))}
+        <div className="space-y-7">
+          {/* Level */}
+          <div className="flex items-center gap-5 flex-wrap">
+            <label className="text-base font-semibold text-gray-600 min-w-[80px]">المستوى:</label>
+            <div className="flex gap-3">
+              {[1, 2, 3].map((l) => (
+                <button
+                  key={l}
+                  onClick={() => navigate(`/scenario/${l}/${weekNum}/${sessionNum}`)}
+                  className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all"
+                  style={{
+                    backgroundColor: l === levelNum ? levelColors[l].main : 'transparent',
+                    color: l === levelNum ? 'white' : levelColors[l].main,
+                    border: `2px solid ${levelColors[l].main}`,
+                  }}
+                >
+                  {levelColors[l].name}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Week */}
-        <div className="flex items-center gap-4 flex-wrap">
-          <label className="text-sm font-semibold text-gray-600 min-w-[70px]">الأسبوع:</label>
-          <div className="flex gap-2 flex-wrap">
+          {/* Week */}
+          <div className="flex items-center gap-5 flex-wrap">
+            <label className="text-base font-semibold text-gray-600 min-w-[80px]">الأسبوع:</label>
+            <div className="flex gap-2.5 flex-wrap">
             {calendar.weeks.map((w) => (
               <button
                 key={w.weekNumber}
@@ -159,24 +160,25 @@ export default function ScenarioPage() {
           </div>
         </div>
 
-        {/* Session / Day */}
-        <div className="flex items-center gap-4">
-          <label className="text-sm font-semibold text-gray-600 min-w-[70px]">اليوم:</label>
-          <div className="flex gap-3">
-            {[1, 2].map((s) => (
-              <button
-                key={s}
-                onClick={() => navigate(`/scenario/${levelNum}/${weekNum}/${s}`)}
-                className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all"
-                style={{
-                  backgroundColor: s === sessionNum ? color.main : 'transparent',
-                  color: s === sessionNum ? 'white' : color.main,
-                  border: `2px solid ${color.main}`,
-                }}
-              >
-                {s === 1 ? '📅 الثلاثاء (الفقرة ١)' : '📅 الخميس (الفقرة ٢)'}
-              </button>
-            ))}
+          {/* Session / Day */}
+          <div className="flex items-center gap-5">
+            <label className="text-base font-semibold text-gray-600 min-w-[80px]">اليوم:</label>
+            <div className="flex gap-3">
+              {[1, 2].map((s) => (
+                <button
+                  key={s}
+                  onClick={() => navigate(`/scenario/${levelNum}/${weekNum}/${s}`)}
+                  className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all"
+                  style={{
+                    backgroundColor: s === sessionNum ? color.main : 'transparent',
+                    color: s === sessionNum ? 'white' : color.main,
+                    border: `2px solid ${color.main}`,
+                  }}
+                >
+                  {s === 1 ? '📅 الثلاثاء (الفقرة ١)' : '📅 الخميس (الفقرة ٢)'}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
