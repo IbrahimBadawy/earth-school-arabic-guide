@@ -14,7 +14,6 @@ const skillLabels = {
   language: { label: 'لغويات', color: '#4CAF50' },
   drama: { label: 'دراما', color: '#FF5722' },
 };
-
 const levelColors = { 1: '#4CAF50', 2: '#2196F3', 3: '#FF9800' };
 
 export default function ActivitiesPage() {
@@ -32,107 +31,48 @@ export default function ActivitiesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-primary mb-2">مكتبة الأنشطة</h1>
-        <p className="text-text-muted text-sm">أنشطة وألعاب تعليمية متنوعة لتحقيق أهداف المنهج</p>
+        <h1 className="text-xl font-bold text-gray-900">مكتبة الأنشطة</h1>
+        <p className="text-sm text-gray-500 mt-1">{toArabicNumerals(activities.length)} نشاط وألعاب تعليمية متنوعة</p>
       </div>
 
-      {/* Search & Filters */}
       <div className="space-y-3 no-print">
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="ابحثي عن نشاط..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full px-4 py-3 pr-10 rounded-xl border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-          />
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted">🔍</span>
+        <input type="text" placeholder="ابحثي عن نشاط..." value={search} onChange={(e) => setSearch(e.target.value)}
+          className="w-full px-4 py-2.5 rounded-xl border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary placeholder:text-gray-400" />
+
+        <div className="flex flex-wrap gap-1.5">
+          <button onClick={() => setFilterSkill('الكل')} className={`px-2.5 py-1 rounded-lg text-xs font-medium ${filterSkill === 'الكل' ? 'bg-primary text-white' : 'bg-white border border-border text-gray-600'}`}>الكل</button>
+          {Object.entries(skillLabels).map(([key, { label, color }]) => (
+            <button key={key} onClick={() => setFilterSkill(key)} className="px-2.5 py-1 rounded-lg text-xs font-medium" style={{ backgroundColor: filterSkill === key ? color : 'white', color: filterSkill === key ? 'white' : color, border: `1px solid ${filterSkill === key ? color : '#e5e5e5'}` }}>{label}</button>
+          ))}
         </div>
 
-        <div className="flex flex-wrap gap-2">
-          <div className="flex gap-1 items-center">
-            <span className="text-xs text-text-muted ml-1">المهارة:</span>
-            <button
-              onClick={() => setFilterSkill('الكل')}
-              className={`px-2 py-1 rounded-full text-xs font-medium transition-all ${filterSkill === 'الكل' ? 'bg-primary text-white' : 'bg-surface border border-border text-text-light'}`}
-            >
-              الكل
-            </button>
-            {Object.entries(skillLabels).map(([key, { label, color }]) => (
-              <button
-                key={key}
-                onClick={() => setFilterSkill(key)}
-                className="px-2 py-1 rounded-full text-xs font-medium transition-all"
-                style={{
-                  backgroundColor: filterSkill === key ? color : color + '15',
-                  color: filterSkill === key ? 'white' : color,
-                }}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-          <div className="flex gap-1 items-center">
-            <span className="text-xs text-text-muted ml-1">المستوى:</span>
-            <button
-              onClick={() => setFilterLevel(0)}
-              className={`px-2 py-1 rounded-full text-xs font-medium transition-all ${filterLevel === 0 ? 'bg-primary text-white' : 'bg-surface border border-border text-text-light'}`}
-            >
-              الكل
-            </button>
-            {[1, 2, 3].map((l) => (
-              <button
-                key={l}
-                onClick={() => setFilterLevel(l)}
-                className="px-2 py-1 rounded-full text-xs font-medium transition-all"
-                style={{
-                  backgroundColor: filterLevel === l ? levelColors[l] : levelColors[l] + '15',
-                  color: filterLevel === l ? 'white' : levelColors[l],
-                }}
-              >
-                م{l === 1 ? '١' : l === 2 ? '٢' : '٣'}
-              </button>
-            ))}
-          </div>
+        <div className="flex gap-1.5">
+          <button onClick={() => setFilterLevel(0)} className={`px-2.5 py-1 rounded-lg text-xs font-medium ${filterLevel === 0 ? 'bg-primary text-white' : 'bg-white border border-border text-gray-600'}`}>كل المستويات</button>
+          {[1, 2, 3].map((l) => (
+            <button key={l} onClick={() => setFilterLevel(l)} className="px-2.5 py-1 rounded-lg text-xs font-medium" style={{ backgroundColor: filterLevel === l ? levelColors[l] : 'white', color: filterLevel === l ? 'white' : levelColors[l], border: `1px solid ${filterLevel === l ? levelColors[l] : '#e5e5e5'}` }}>م{l === 1 ? '١' : l === 2 ? '٢' : '٣'}</button>
+          ))}
         </div>
       </div>
 
-      <p className="text-xs text-text-muted">{toArabicNumerals(filtered.length)} نشاط</p>
+      <p className="text-xs text-gray-400">{toArabicNumerals(filtered.length)} نتيجة</p>
 
-      {/* Activities Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {filtered.map((act, i) => {
           const skill = skillLabels[act.targetSkill] || { label: act.targetSkill, color: '#888' };
           return (
-            <motion.div
-              key={act.id}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: Math.min(i * 0.05, 0.3) }}
-            >
-              <Link
-                to={`/activities/${act.id}`}
-                className="block bg-surface rounded-2xl p-5 border border-border hover:shadow-lg hover:border-primary/20 transition-all group"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <h3 className="font-bold text-text group-hover:text-primary transition-colors">{act.name}</h3>
-                  <span className="px-2 py-0.5 rounded-full text-xs font-medium" style={{ backgroundColor: skill.color + '15', color: skill.color }}>
-                    {skill.label}
-                  </span>
+            <motion.div key={act.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: Math.min(i * 0.03, 0.3) }}>
+              <Link to={`/activities/${act.id}`} className="block bg-white rounded-xl border border-border p-4 hover:shadow-sm hover:border-primary/20 transition-all group">
+                <div className="flex items-start justify-between mb-2">
+                  <h3 className="font-semibold text-sm text-gray-800 group-hover:text-primary">{act.name}</h3>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-medium" style={{ backgroundColor: skill.color + '15', color: skill.color }}>{skill.label}</span>
                 </div>
-                <p className="text-sm text-text-light mb-3 line-clamp-2">{act.description}</p>
-                <div className="flex items-center gap-3 text-xs text-text-muted">
-                  <span>⏱️ {toArabicNumerals(act.duration)} دقيقة</span>
+                <p className="text-xs text-gray-500 mb-2 line-clamp-2">{act.description}</p>
+                <div className="flex items-center gap-3 text-[10px] text-gray-400">
+                  <span>⏱ {toArabicNumerals(act.duration)} د</span>
                   <span>👥 {act.groupSize}</span>
-                  <div className="flex gap-1 mr-auto">
+                  <div className="flex gap-0.5 mr-auto">
                     {act.targetLevels.map((l) => (
-                      <span
-                        key={l}
-                        className="w-5 h-5 rounded-full flex items-center justify-center text-white text-[10px] font-bold"
-                        style={{ backgroundColor: levelColors[l] }}
-                      >
-                        {l}
-                      </span>
+                      <span key={l} className="w-4 h-4 rounded flex items-center justify-center text-white text-[9px] font-bold" style={{ backgroundColor: levelColors[l] }}>{l}</span>
                     ))}
                   </div>
                 </div>

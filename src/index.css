@@ -8,24 +8,25 @@
   --color-secondary-light: #E8C9A0;
   --color-accent: #7EC8E3;
   --color-accent-light: #B8E0F0;
-  --color-bg: #FEFAE0;
-  --color-surface: #FFF8E7;
-  --color-surface-hover: #FFF3D6;
-  --color-text: #3E2723;
-  --color-text-light: #6D4C41;
-  --color-text-muted: #8D6E63;
-  --color-border: #E8DCC8;
+  --color-bg: #FAFAF5;
+  --color-surface: #FFFFFF;
+  --color-surface-hover: #F5F5F0;
+  --color-text: #1a1a1a;
+  --color-text-light: #555555;
+  --color-text-muted: #888888;
+  --color-border: #e5e5e5;
   --color-level1: #4CAF50;
   --color-level1-light: #E8F5E9;
   --color-level2: #2196F3;
   --color-level2-light: #E3F2FD;
   --color-level3: #FF9800;
   --color-level3-light: #FFF3E0;
-  --color-danger: #E53935;
-  --color-success: #43A047;
-  --color-warning: #FB8C00;
 
-  --font-family-sans: 'IBM Plex Sans Arabic', sans-serif;
+  --font-family-sans: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+}
+
+html {
+  direction: rtl;
 }
 
 * {
@@ -35,55 +36,35 @@
 }
 
 body {
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
-  background-color: #FEFAE0;
-  color: #3E2723;
-  direction: rtl;
+  font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
   min-height: 100vh;
+  line-height: 1.7;
+}
+
+@media (min-width: 1024px) {
+  #main-content {
+    margin-right: 14rem;
+  }
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #FFF8E7;
+  background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #D4A574;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #C4956A;
+  background: #ccc;
+  border-radius: 3px;
 }
 
 @media print {
-  .no-print {
-    display: none !important;
-  }
-  body {
-    background: white;
-    color: black;
-    font-size: 12pt;
-  }
-  * {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  main {
-    margin: 0 !important;
-    padding: 0.5cm !important;
-  }
-  header, nav, footer, aside {
-    display: none !important;
-  }
-  .rounded-2xl, .rounded-xl {
-    page-break-inside: avoid;
-  }
-  @page {
-    margin: 1cm;
-    size: A4;
-  }
+  .no-print { display: none !important; }
+  body { background: white; color: black; font-size: 11pt; }
+  * { print-color-adjust: exact !important; }
+  header, nav, footer, aside { display: none !important; }
+  main { margin: 0 !important; padding: 0.5cm !important; }
+  @page { margin: 1cm; size: A4; }
 }

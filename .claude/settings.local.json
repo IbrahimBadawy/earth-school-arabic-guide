@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(npx vite:*)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Bash(gh auth:*)",
+      "Bash(npx gh-pages:*)",
+      "Bash(gh api:*)",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d.get\\(''''html_url'''',''''N/A''''\\)\\); print\\(''''Status:'''', d.get\\(''''status'''',''''N/A''''\\)\\)\")"
     ]
   }
 }
