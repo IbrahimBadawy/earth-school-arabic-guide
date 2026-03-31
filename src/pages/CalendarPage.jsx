@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import calendar from '../data/unit-calendar.json';
 import { useAppContext } from '../context/AppContext';
+import { useAuth } from '../context/AuthContext';
 import { toArabicNumerals } from '../utils/arabicNumbers';
 
 const levelFocus = {
@@ -44,7 +45,15 @@ const levelFocus = {
 
 export default function CalendarPage() {
   const { selectedLevel, setSelectedLevel, currentWeek, setCurrentWeek, levelColors } = useAppContext();
+  const { isAdmin, assignedLevels, assignments } = useAuth();
+  const visibleLevels = isAdmin ? [1, 2, 3] : assignedLevels;
   const color = levelColors[selectedLevel];
+
+  const canSeeSession = (lvl, sess) => {
+    if (isAdmin) return true;
+    const day = sess === 1 ? 'tuesday' : 'thursday';
+    return assignments.some(a => a.level === lvl && a.day === day);
+  };
 
   return (
     <div className="space-y-10">
@@ -57,7 +66,7 @@ export default function CalendarPage() {
 
       {/* Level Selector */}
       <div className="flex gap-3">
-        {[1, 2, 3].map((l) => (
+        {visibleLevels.map((l) => (
           <button
             key={l}
             onClick={() => setSelectedLevel(l)}
@@ -112,9 +121,9 @@ export default function CalendarPage() {
               {levelFocus[selectedLevel](week)}
             </div>
 
-            {/* Sessions */}
+            {/* Sessions - only show days teacher is assigned to */}
             <div className="p-3 space-y-2">
-              {week.sessions.map((session) => (
+              {week.sessions.filter(s => canSeeSession(selectedLevel, s.session)).map((session) => (
                 <Link
                   key={session.session}
                   to={`/scenario/${selectedLevel}/${week.weekNumber}/${session.session}`}

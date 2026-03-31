@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import levels from '../data/levels.json';
+import { useAuth } from '../context/AuthContext';
 
 const navCards = [
   { path: '/objectives/general', title: 'الأهداف العامة', desc: 'أهداف المنهج لكل مستوى', icon: '🎯' },
@@ -19,6 +20,10 @@ const levelText = { 1: 'text-green-700', 2: 'text-blue-700', 3: 'text-orange-700
 const levelDot = { 1: 'bg-green-500', 2: 'bg-blue-500', 3: 'bg-orange-500' };
 
 export default function HomePage() {
+  const { isAdmin, assignedLevels, profile } = useAuth();
+  const visibleLevels = isAdmin ? [1, 2, 3] : assignedLevels;
+  const filteredLevels = levels.filter(l => visibleLevels.includes(l.id));
+
   return (
     <div className="space-y-14">
       {/* Hero */}
@@ -28,6 +33,9 @@ export default function HomePage() {
         className="text-center py-10"
       >
         <p className="text-base text-gray-400 mb-5">بسم الله الرحمن الرحيم</p>
+        {profile && (
+          <p className="text-base text-primary font-semibold mb-4">مرحبًا {profile.full_name} {isAdmin ? '(مدير)' : ''}</p>
+        )}
 
         <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-primary flex items-center justify-center text-white text-3xl font-bold shadow-lg">
           أ
@@ -56,8 +64,8 @@ export default function HomePage() {
         <h3 className="text-xl font-bold text-gray-800 mb-3">المستويات التعليمية</h3>
         <p className="text-base text-gray-500 mb-8">كل مستوى مستقل بمعلمته الخاصة ومحاوره المختلفة</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {levels.map((level, i) => (
+        <div className={`grid grid-cols-1 ${filteredLevels.length > 1 ? 'md:grid-cols-' + Math.min(filteredLevels.length, 3) : ''} gap-6`}>
+          {filteredLevels.map((level, i) => (
             <motion.div
               key={level.id}
               initial={{ opacity: 0, y: 15 }}

@@ -17,7 +17,13 @@
       "Bash(sed -i \"s/قراءة قصة مع محاولة قراءة بعض الكلمات القرآنية/قراءة قصة مع محاولة قراءة بعض كلمات القصة/g\" level2-weeks2-12.js)",
       "Bash(sed -i \"s/لعبة ''أنا أقرأ من القرآن''/لعبة ''أنا أقرأ من القصة''/g\" level2-weeks2-12.js)",
       "Bash(sed -i \"s/بقراءته القرآنية/بقراءته/g\" level2-weeks2-12.js)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(npx vercel:*)",
+      "Bash(node supabase/setup.mjs)",
+      "Bash(node -e \":*)",
+      "Bash(curl -s \"https://ylghbvkqismajqqxjrtr.supabase.co/rest/v1/\" -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsZ2hidmtxaXNtYWpxcXhqcnRyIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDkyNzQ5NiwiZXhwIjoyMDkwNTAzNDk2fQ.HKzFTdESd0A7VtJYaXAg2AEqnBHCcBUrdpqDonvbKKY\" -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsZ2hidmtxaXNtYWpxcXhqcnRyIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDkyNzQ5NiwiZXhwIjoyMDkwNTAzNDk2fQ.HKzFTdESd0A7VtJYaXAg2AEqnBHCcBUrdpqDonvbKKY\")",
+      "Bash(curl -s \"https://ylghbvkqismajqqxjrtr.supabase.co/rest/v1/profiles?select=*\" -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsZ2hidmtxaXNtYWpxcXhqcnRyIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDkyNzQ5NiwiZXhwIjoyMDkwNTAzNDk2fQ.HKzFTdESd0A7VtJYaXAg2AEqnBHCcBUrdpqDonvbKKY\" -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsZ2hidmtxaXNtYWpxcXhqcnRyIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDkyNzQ5NiwiZXhwIjoyMDkwNTAzNDk2fQ.HKzFTdESd0A7VtJYaXAg2AEqnBHCcBUrdpqDonvbKKY\")",
+      "Bash(node supabase/seed-data.mjs)"
     ]
   }
 }

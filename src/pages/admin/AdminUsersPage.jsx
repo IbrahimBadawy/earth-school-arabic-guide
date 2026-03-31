@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { supabase } from '../../lib/supabase';
+import { supabaseAdmin } from '../../lib/supabaseAdmin';
 
 const levelNames = { 1: 'المستوى الأول', 2: 'المستوى الثاني', 3: 'المستوى الثالث' };
 const levelColors = { 1: '#4CAF50', 2: '#2196F3', 3: '#FF9800' };
@@ -58,22 +59,32 @@ export default function AdminUsersPage() {
       if (editingUser) {
         // Update existing user
         userId = editingUser.id;
-        await supabase.from('profiles').update({ full_name: form.full_name, role: form.role }).eq('id', userId);
+        await supabaseAdmin.from('profiles').update({ full_name: form.full_name, role: form.role }).eq('id', userId);
       } else {
-        // Create new user via Supabase Auth
-        const { data, error: authErr } = await supabase.auth.signUp({
+        // Create new user via service_role (bypasses trigger)
+        if (!supabaseAdmin) throw new Error('مفتاح الإدارة غير متاح');
+        const { data, error: authErr } = await supabaseAdmin.auth.admin.createUser({
           email: form.email,
           password: form.password,
-          options: { data: { full_name: form.full_name, role: form.role } }
+          email_confirm: true,
         });
         if (authErr) throw authErr;
         userId = data.user?.id;
         if (!userId) throw new Error('فشل في إنشاء المستخدم');
+
+        // Create profile manually
+        const { error: profileErr } = await supabaseAdmin.from('profiles').insert({
+          id: userId,
+          email: form.email,
+          full_name: form.full_name,
+          role: form.role,
+        });
+        if (profileErr) throw profileErr;
       }
 
       // Update assignments
       if (form.role === 'teacher') {
-        await supabase.from('teacher_assignments').delete().eq('teacher_id', userId);
+        await supabaseAdmin.from('teacher_assignments').delete().eq('teacher_id', userId);
         const assignments = [];
         if (assignForm.level1_tue) assignments.push({ teacher_id: userId, level: 1, day: 'tuesday' });
         if (assignForm.level1_thu) assignments.push({ teacher_id: userId, level: 1, day: 'thursday' });
@@ -82,7 +93,7 @@ export default function AdminUsersPage() {
         if (assignForm.level3_tue) assignments.push({ teacher_id: userId, level: 3, day: 'tuesday' });
         if (assignForm.level3_thu) assignments.push({ teacher_id: userId, level: 3, day: 'thursday' });
         if (assignments.length > 0) {
-          await supabase.from('teacher_assignments').insert(assignments);
+          await supabaseAdmin.from('teacher_assignments').insert(assignments);
         }
       }
 
@@ -97,7 +108,7 @@ export default function AdminUsersPage() {
 
   async function handleDelete(user) {
     if (!confirm(`هل تريد حذف ${user.full_name}؟`)) return;
-    await supabase.from('profiles').delete().eq('id', user.id);
+    await supabaseAdmin.from('profiles').delete().eq('id', user.id);
     fetchUsers();
   }
 

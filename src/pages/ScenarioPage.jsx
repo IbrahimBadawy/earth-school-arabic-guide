@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toArabicNumerals, formatDuration } from '../utils/arabicNumbers';
 import { useAppContext } from '../context/AppContext';
+import { useAuth } from '../context/AuthContext';
 import calendar from '../data/unit-calendar.json';
 import scenariosData from '../data/daily-scenarios/index';
 
@@ -93,8 +94,17 @@ const typeStyles = {
 export default function ScenarioPage() {
   const { level, week, session } = useParams();
   const { levelColors } = useAppContext();
+  const { isAdmin, assignedLevels, assignments } = useAuth();
   const navigate = useNavigate();
   const [expandedBlock, setExpandedBlock] = useState(null);
+
+  // Determine which levels and sessions this user can see
+  const visibleLevels = isAdmin ? [1, 2, 3] : assignedLevels;
+  const canSeeSession = (lvl, sess) => {
+    if (isAdmin) return true;
+    const day = sess === 1 ? 'tuesday' : 'thursday';
+    return assignments.some(a => a.level === lvl && a.day === day);
+  };
 
   const levelNum = parseInt(level);
   const weekNum = parseInt(week);
@@ -122,7 +132,7 @@ export default function ScenarioPage() {
           <div className="flex items-center gap-5 flex-wrap">
             <label className="text-base font-semibold text-gray-600 min-w-[80px]">المستوى:</label>
             <div className="flex gap-3">
-              {[1, 2, 3].map((l) => (
+              {visibleLevels.map((l) => (
                 <button
                   key={l}
                   onClick={() => navigate(`/scenario/${l}/${weekNum}/${sessionNum}`)}
@@ -164,7 +174,7 @@ export default function ScenarioPage() {
           <div className="flex items-center gap-5">
             <label className="text-base font-semibold text-gray-600 min-w-[80px]">اليوم:</label>
             <div className="flex gap-3">
-              {[1, 2].map((s) => (
+              {[1, 2].filter(s => canSeeSession(levelNum, s)).map((s) => (
                 <button
                   key={s}
                   onClick={() => navigate(`/scenario/${levelNum}/${weekNum}/${s}`)}
