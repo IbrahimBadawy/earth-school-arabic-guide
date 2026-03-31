@@ -7,43 +7,23 @@ import { useAuth } from '../context/AuthContext';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { toArabicNumerals } from '../utils/arabicNumbers';
 
-const levelFocus = {
-  1: (w) => `حرف ${w.letter} - ${w.letterName}`,
-  2: (w) => {
-    const focuses = [
-      'مراجعة وتأسيس - تحليل أصوات بسيطة',
-      'دمج صوتين - بداية الحركات',
-      'الحركات الثلاث - فتحة وضمة وكسرة',
-      'مواضع الحرف - أول ووسط وآخر',
-      'قراءة مقاطع ثنائية - كتابة حروف',
-      'دمج ثلاثة أصوات - كلمات بسيطة',
-      'قراءة كلمات ثنائية وثلاثية',
-      'كتابة كلمات بحروف منفصلة',
-      'قراءة جمل قصيرة بالحركات',
-      'تعزيز القراءة والكتابة',
-      'مراجعة شاملة وتقييم',
-      'مراجعة نهائية واحتفال',
-    ];
-    return focuses[w.weekNumber - 1] || '';
-  },
-  3: (w) => {
-    const focuses = [
-      'حروف متشابهة - تمييز المخارج',
-      'الصوت الطويل والقصير',
-      'التاء المربوطة والهمزة',
-      'الكتابة المتصلة - كلمات كاملة',
-      'ترتيب كلمات لتكوين جمل',
-      'المرادفات والأضداد',
-      'الجذر المشترك - عائلة الكلمة',
-      'قراءة فقرات قصيرة',
-      'كتابة جمل وصفية',
-      'قراءة مستقلة وطلاقة',
-      'تأليف قصة قصيرة',
-      'مراجعة شاملة واحتفال ختامي',
-    ];
-    return focuses[w.weekNumber - 1] || '';
-  },
-};
+const defaultL2Focus = [
+  'مراجعة وتأسيس - تحليل أصوات بسيطة', 'دمج صوتين - بداية الحركات',
+  'الحركات الثلاث - فتحة وضمة وكسرة', 'مواضع الحرف - أول ووسط وآخر',
+  'قراءة مقاطع ثنائية - كتابة حروف', 'دمج ثلاثة أصوات - كلمات بسيطة',
+  'قراءة كلمات ثنائية وثلاثية', 'كتابة كلمات بحروف منفصلة',
+  'قراءة جمل قصيرة بالحركات', 'تعزيز القراءة والكتابة',
+  'مراجعة شاملة وتقييم', 'مراجعة نهائية واحتفال',
+];
+
+const defaultL3Focus = [
+  'حروف متشابهة - تمييز المخارج', 'الصوت الطويل والقصير',
+  'التاء المربوطة والهمزة', 'الكتابة المتصلة - كلمات كاملة',
+  'ترتيب كلمات لتكوين جمل', 'المرادفات والأضداد',
+  'الجذر المشترك - عائلة الكلمة', 'قراءة فقرات قصيرة',
+  'كتابة جمل وصفية', 'قراءة مستقلة وطلاقة',
+  'تأليف قصة قصيرة', 'مراجعة شاملة واحتفال ختامي',
+];
 
 export default function CalendarPage() {
   const { selectedLevel, setSelectedLevel, currentWeek, setCurrentWeek, levelColors } = useAppContext();
@@ -51,8 +31,11 @@ export default function CalendarPage() {
   const visibleLevels = isAdmin ? [1, 2, 3] : assignedLevels;
   const color = levelColors[selectedLevel];
 
-  // Load calendar from Supabase
+  // Load calendar + level focuses from Supabase
   const [calendarData, setCalendarData] = useState(localCalendar);
+  const [l2Focus, setL2Focus] = useState(defaultL2Focus);
+  const [l3Focus, setL3Focus] = useState(defaultL3Focus);
+
   useEffect(() => {
     if (!isSupabaseConfigured()) return;
     supabase.from('unit_weeks').select('*').order('week_number').then(({ data }) => {
@@ -70,7 +53,19 @@ export default function CalendarPage() {
         });
       }
     });
+    supabase.from('general_objectives').select('data').eq('id', 'calendar_l2').single().then(({ data }) => {
+      if (data?.data) setL2Focus(data.data);
+    });
+    supabase.from('general_objectives').select('data').eq('id', 'calendar_l3').single().then(({ data }) => {
+      if (data?.data) setL3Focus(data.data);
+    });
   }, []);
+
+  const getLevelFocus = (w) => {
+    if (selectedLevel === 1) return `حرف ${w.letter} - ${w.letterName}`;
+    if (selectedLevel === 2) return l2Focus[w.weekNumber - 1] || '';
+    return l3Focus[w.weekNumber - 1] || '';
+  };
 
   const canSeeSession = (lvl, sess) => {
     if (isAdmin) return true;
@@ -141,7 +136,7 @@ export default function CalendarPage() {
 
             {/* Focus */}
             <div className="px-4 py-3 text-sm text-gray-500 border-b border-gray-50 leading-relaxed">
-              {levelFocus[selectedLevel](week)}
+              {getLevelFocus(week)}
             </div>
 
             {/* Sessions - only show days teacher is assigned to */}

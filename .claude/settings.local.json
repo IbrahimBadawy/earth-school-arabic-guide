@@ -23,7 +23,9 @@
       "Bash(node -e \":*)",
       "Bash(curl -s \"https://ylghbvkqismajqqxjrtr.supabase.co/rest/v1/\" -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsZ2hidmtxaXNtYWpxcXhqcnRyIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDkyNzQ5NiwiZXhwIjoyMDkwNTAzNDk2fQ.HKzFTdESd0A7VtJYaXAg2AEqnBHCcBUrdpqDonvbKKY\" -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsZ2hidmtxaXNtYWpxcXhqcnRyIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDkyNzQ5NiwiZXhwIjoyMDkwNTAzNDk2fQ.HKzFTdESd0A7VtJYaXAg2AEqnBHCcBUrdpqDonvbKKY\")",
       "Bash(curl -s \"https://ylghbvkqismajqqxjrtr.supabase.co/rest/v1/profiles?select=*\" -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsZ2hidmtxaXNtYWpxcXhqcnRyIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDkyNzQ5NiwiZXhwIjoyMDkwNTAzNDk2fQ.HKzFTdESd0A7VtJYaXAg2AEqnBHCcBUrdpqDonvbKKY\" -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsZ2hidmtxaXNtYWpxcXhqcnRyIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDkyNzQ5NiwiZXhwIjoyMDkwNTAzNDk2fQ.HKzFTdESd0A7VtJYaXAg2AEqnBHCcBUrdpqDonvbKKY\")",
-      "Bash(node supabase/seed-data.mjs)"
+      "Bash(node supabase/seed-data.mjs)",
+      "Bash(curl -s -X PATCH \"https://ylghbvkqismajqqxjrtr.supabase.co/rest/v1/unit_weeks?week_number=eq.1\" -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsZ2hidmtxaXNtYWpxcXhqcnRyIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDkyNzQ5NiwiZXhwIjoyMDkwNTAzNDk2fQ.HKzFTdESd0A7VtJYaXAg2AEqnBHCcBUrdpqDonvbKKY\" -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsZ2hidmtxaXNtYWpxcXhqcnRyIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDkyNzQ5NiwiZXhwIjoyMDkwNTAzNDk2fQ.HKzFTdESd0A7VtJYaXAg2AEqnBHCcBUrdpqDonvbKKY\" -H \"Content-Type: application/json\" -H \"Prefer: return=representation\" -d '{}')",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\([k for k in d[0].keys\\(\\)]\\)\")"
     ]
   }
 }
