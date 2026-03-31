@@ -1,13 +1,14 @@
-import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import ScenarioEditor from './editors/ScenarioEditor';
 import ActivityEditor from './editors/ActivityEditor';
 import ObjectiveEditor from './editors/ObjectiveEditor';
 import TipsEditor from './editors/TipsEditor';
+import CalendarEditor from './editors/CalendarEditor';
 
 const sections = [
   { key: 'scenarios', label: 'السيناريوهات', icon: '📖', desc: 'تعديل سيناريوهات الفقرات اليومية' },
+  { key: 'calendar', label: 'الخطة الزمنية', icon: '📅', desc: 'تعديل عناوين وموضوعات الأسابيع' },
   { key: 'activities', label: 'الأنشطة', icon: '🎮', desc: 'إضافة وتعديل الأنشطة التعليمية' },
   { key: 'objectives', label: 'الأهداف', icon: '🎯', desc: 'تعديل الأهداف التفصيلية' },
   { key: 'tips', label: 'النصائح', icon: '💡', desc: 'تعديل النصائح والأسئلة الشائعة' },
@@ -15,6 +16,7 @@ const sections = [
 
 const editors = {
   scenarios: ScenarioEditor,
+  calendar: CalendarEditor,
   activities: ActivityEditor,
   objectives: ObjectiveEditor,
   tips: TipsEditor,

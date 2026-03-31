@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import calendar from '../data/unit-calendar.json';
+import localCalendar from '../data/unit-calendar.json';
 import { useAppContext } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { toArabicNumerals } from '../utils/arabicNumbers';
 
 const levelFocus = {
@@ -49,6 +51,27 @@ export default function CalendarPage() {
   const visibleLevels = isAdmin ? [1, 2, 3] : assignedLevels;
   const color = levelColors[selectedLevel];
 
+  // Load calendar from Supabase
+  const [calendarData, setCalendarData] = useState(localCalendar);
+  useEffect(() => {
+    if (!isSupabaseConfigured()) return;
+    supabase.from('unit_weeks').select('*').order('week_number').then(({ data }) => {
+      if (data?.length) {
+        setCalendarData({
+          ...localCalendar,
+          weeks: data.map(w => ({
+            weekNumber: w.week_number, letter: w.letter,
+            letterName: w.letter_name, theme: w.theme,
+            sessions: [
+              { session: 1, focus: w.session1_focus },
+              { session: 2, focus: w.session2_focus },
+            ]
+          }))
+        });
+      }
+    });
+  }, []);
+
   const canSeeSession = (lvl, sess) => {
     if (isAdmin) return true;
     const day = sess === 1 ? 'tuesday' : 'thursday';
@@ -91,7 +114,7 @@ export default function CalendarPage() {
 
       {/* Weeks Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {calendar.weeks.map((week, i) => (
+        {calendarData.weeks.map((week, i) => (
           <motion.div
             key={week.weekNumber}
             initial={{ opacity: 0 }}
